@@ -2,7 +2,7 @@
 title: Groq
 last_updated: 1405/04/07
 link: https://console.groq.com/home
-author: author: https://github.com/AliRajabian
+author: https://github.com/AliRajabian
 tested: true
 ---
 
