@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import strings from "@/lib/strings.json";
 
 const iranYekanX = localFont({
   src: [
@@ -15,15 +17,16 @@ const iranYekanX = localFont({
     { path: "./fonts/IRANYekanXFaNum-Black.woff2", weight: "950" },
     { path: "./fonts/IRANYekanXFaNum-ExtraBlack.woff2", weight: "1000" },
   ],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
-  title: "دسترسی آسان به هوش مصنوعی",
-  description: "لیست پلتفرم‌های رایگان هوش مصنوعی",
+  title: strings.site.title,
+  description: strings.site.description,
   openGraph: {
-    title: "ez ai access / free models",
-    description: "لیست پلتفرم‌های رایگان هوش مصنوعی",
-    siteName: "ez ai access / free models",
+    title: strings.site.ogTitle,
+    description: strings.site.description,
+    siteName: strings.site.ogSiteName,
     type: "website",
     locale: "fa_IR",
   },
@@ -35,8 +38,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa" dir="rtl" className={`${iranYekanX.className} h-full`}>
-      <body className="min-h-full max-w-6xl mx-auto px-4 py-8">{children}</body>
+    <html lang="fa" dir="rtl" className={cn(iranYekanX.variable, "h-full")}>
+      <body className="min-h-full max-w-6xl mx-auto px-4 py-8">
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,7 +1,22 @@
 import Image from "next/image";
 import { getAllEntries } from "@/lib/entries";
-import { Markdown } from "@/app/markdown";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/fa";
 import headerImage from "@/app/assets/frame.jpg";
+
+dayjs.extend(relativeTime);
+dayjs.locale("fa");
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import strings from "@/lib/strings.json";
 
 export default function Home() {
   const entries = getAllEntries();
@@ -14,85 +29,91 @@ export default function Home() {
             src={headerImage}
             priority
             className="rounded-lg mb-4"
-            alt="yazdan!"
+            alt={strings.home.imageAlt}
           />
-          <h1 className="text-2xl">
-            هدف اینجا دسترسی رایگان و آسان به هوش مصنوعیه
-          </h1>
+          <h1 className="text-2xl">{strings.home.heading}</h1>
           <div className="font-light text-stone-300 mt-4">
-            <p></p>
+            <p className="mt-4">{strings.home.paragraphs[0]}</p>
+            <p className="mt-4">{strings.home.paragraphs[1]}</p>
+            <p className="mt-4">{strings.home.paragraphs[2]}</p>
             <p className="mt-4">
-              بچهای کامیونیتی اینور اونور API های رایگان هوش مصنوعی رو میذارن.
-              فعلا اینجارو برای دسترسی ساده تر درست کردم و منابع خوبی رو که
-              ببینم میذارم.
-            </p>
-            <p className="mt-4">
-              اینایی که اینجا هست رو خودم تست کردم و دسترسی گرفتم.
-            </p>
-            <p className="mt-4">
-              یه سری آموزش و داکیومنت هم برای دسترسی به مدل های رایگان یا ارزون
-              چینی دارم آماده میکنم که به زودی میذارم اینجا.
-            </p>
-            <p className="mt-4">
-              اگه خواستی چیزی اضافه کنی یه pull request به{" "}
-              <a
-                href="https://github.com/yazdanctx/ez-ai-access"
-                className="text-blue-400"
-                target="_blank"
-              >
-                اینجا
-              </a>{" "}
-              بزن، ماچ به کله ات 💋
+              {strings.home.paragraphs[3].replace("%s", strings.home.prLink)}
             </p>
           </div>
         </div>
 
-        <div className="mt-8 lg:mt-0 w-full space-y-6">
-          {entries.map((entry) => (
-            <div
-              key={entry.slug}
-              className="p-4 rounded-lg border border-zinc-800"
-            >
-              <div className="flex items-center gap-2">
-                <h2 className="text-lg font-semibold">{entry.title}</h2>
-                <span
-                  className={`text-xs px-1.5 py-0.5 rounded ${
-                    entry.tested
-                      ? "bg-green-900/50 text-green-400"
-                      : "bg-red-900/50 text-red-400"
-                  }`}
-                >
-                  {entry.tested ? "تست شده" : "تست نشده"}
-                </span>
-              </div>
-              <p className="text-xs text-zinc-500 mt-1">
-                آخرین بروزرسانی: {entry.lastUpdated}
-              </p>
-
-              <div className="mt-3 leading-relaxed text-sm text-stone-300 font-light">
-                <Markdown content={entry.content} />
-              </div>
-
-              <div className="mt-4 pt-3 border-t border-zinc-800 flex items-center gap-3 text-sm">
-                <a
-                  href={entry.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors"
-                >
-                  رفتن به پلتفرم
-                </a>
-                <a
-                  href={entry.author}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-zinc-400 hover:text-white transition-colors"
-                >
-                  منبع
-                </a>
-              </div>
-            </div>
-          ))}
+        <div className="mt-8 lg:mt-0 w-full">
+          <Tabs defaultValue="dangerous" dir="rtl">
+            <TabsList className="w-full">
+              <TabsTrigger value="dangerous" className="flex-1">
+                {strings.tabs.dangerous}
+              </TabsTrigger>
+              <TabsTrigger value="safe" className="flex-1">
+                {strings.tabs.safe}
+              </TabsTrigger>
+              <TabsTrigger value="free-models" className="flex-1">
+                {strings.tabs.freeModels}
+              </TabsTrigger>
+              <TabsTrigger value="education" className="flex-1">
+                {strings.tabs.education}
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="dangerous" className="mt-4 space-y-4">
+              {entries.map((entry) => (
+                <Card key={entry.title}>
+                  <CardHeader>
+                    <div className="flex items-center gap-2">
+                      <CardTitle>{entry.title}</CardTitle>
+                      <span
+                        className={`text-xs px-1.5 py-0.5 rounded ${
+                          entry.tested
+                            ? "bg-green-900/50 text-green-400"
+                            : "bg-red-900/50 text-red-400"
+                        }`}
+                      >
+                        {entry.tested
+                          ? strings.home.tested
+                          : strings.home.notTested}
+                      </span>
+                    </div>
+                    <p className="text-xs text-right text-muted-foreground">
+                      {dayjs(entry.lastUpdated).fromNow()}
+                    </p>
+                  </CardHeader>
+                  <CardContent className="text-sm leading-relaxed text-right">
+                    {entry.content.split("\n\n").map((paragraph, i) => (
+                      <p key={i} className="mb-4 last:mb-0">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </CardContent>
+                  <CardFooter className="gap-2">
+                    <Button asChild>
+                      <a
+                        href={entry.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {strings.home.goToPlatform}
+                      </a>
+                    </Button>
+                    <Button variant="ghost" asChild>
+                      <a
+                        href={entry.author}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {strings.home.source}
+                      </a>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </TabsContent>
+            <TabsContent value="safe" className="mt-4" />
+            <TabsContent value="free-models" className="mt-4" />
+            <TabsContent value="education" className="mt-4" />
+          </Tabs>
         </div>
       </div>
     </main>

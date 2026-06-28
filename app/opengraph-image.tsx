@@ -27,6 +27,7 @@ export default async function Image() {
         src={imageSrc}
         width={320}
         height={320}
+        alt=""
         style={{
           borderRadius: "50%",
           objectFit: "cover",
