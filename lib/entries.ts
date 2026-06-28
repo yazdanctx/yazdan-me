@@ -6,6 +6,7 @@ export interface Entry {
   link: string
   author: string
   tested: boolean
+  isSafe: boolean
   content: string
 }
 
