@@ -21,8 +21,8 @@
     "prLink": "https://github.com/yazdanctx/ez-ai-access"
   },
   "dangerAlert": {
-    "title": "Title",
-    "paragraph": "Placeholder paragraph — replace this with your message."
+    "title": "خطر سرقت اطلاعات",
+    "paragraph": "این API ها به هیچ وجه قابل اعتماد نیستن، امکان داره اطلاعاتتون رو بدزدن ( env values, API keys, etc )، اگر تجربه نداری توصیه میکنم که از تب پلتفرم های امن یا مدل های رایگان استفاده کنی. "
   },
   "comingSoon": "به زودی",
   "tabs": {
@@ -32,3 +32,4 @@
     "education": "آموزش"
   }
 }
+
