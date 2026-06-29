@@ -45,9 +45,7 @@ export default async function Home() {
               فعلا اینجارو برای دسترسی ساده‌تر درست کردم و منابع خوبی رو که
               میبینم میذارم.
             </p>
-            <p>
-              اینایی که اینجا هست رو خودم تست کردم و دسترسی گرفتم.
-            </p>
+            <p>اینایی که اینجا هست رو خودم تست کردم و دسترسی گرفتم.</p>
             <p>
               یه سری آموزش و داکیومنت هم برای دسترسی به مدل های رایگان یا ارزون
               چینی دارم آماده میکنم که به زودی میذارم اینجا.
@@ -84,16 +82,16 @@ export default async function Home() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="dangerous" className="mt-4 space-y-4">
-              <div className="flex items-start gap-3 rounded-lg border border-red-500/30 bg-linear-90 to-red-800/10 from-red-800/5 p-4 text-sm">
+              <div className="flex items-start gap-3 rounded-lg border border-red-500/30 bg-linear-90 to-orange-800/10 from-orange-800/5 p-4 text-sm">
                 <TriangleAlert
                   size={30}
-                  className="mt-1 size-5 shrink-0 text-red-400"
+                  className="mt-1 size-5 shrink-0 text-orange-400"
                 />
                 <div className="space-y-1">
-                  <p className="font-medium text-red-400 text-lg">
+                  <p className="font-medium text-orange-400 text-lg">
                     {strings.dangerAlert.title}
                   </p>
-                  <p className="text-red-400/70 font-medium leading-6">
+                  <p className="text-orange-400/70 font-medium leading-6">
                     {strings.dangerAlert.paragraph}
                   </p>
                 </div>
