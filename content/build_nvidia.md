@@ -1,6 +1,6 @@
 ---
 title: build.nvidia.com
-lastUpdated: 2026-06-29T19:43:22Z
+lastUpdated: 2026-06-29T20:10:04Z
 link: https://build.nvidia.com/models?filters=nimType%3Anim_type_preview
 author: https://github.com/AliRajabian
 tested: true
