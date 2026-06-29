@@ -17,7 +17,7 @@ The URL pointing to the platform's website or access point.
 _Avoid_: URL, address, source
 
 **Entry**:
-A markdown file that documents a single platform. Contains title, description, last_updated, link, and author.
+A markdown file that documents a single platform, stored in `content/`. Contains frontmatter fields (title, lastUpdated, link, author, tested, isSafe) and a body with the platform description.
 _Avoid_: Card, item, page
 
 **Author**:

@@ -22,8 +22,8 @@ import { Check, CornerDownLeft, TriangleAlert, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import strings from "@/lib/strings.json";
 
-export default function Home() {
-  const entries = getAllEntries();
+export default async function Home() {
+  const entries = await getAllEntries();
   const dangerousEntries = entries.filter((e) => !e.isSafe);
   const safeEntries = entries.filter((e) => e.isSafe);
 
