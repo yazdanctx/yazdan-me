@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getSeries, getStandaloneArticles } from "@/lib/mdx";
-import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/lib/components/ui/card";
 import { formatPersianDate } from "@/lib/date";
 
 export const metadata: Metadata = {
@@ -26,7 +31,11 @@ export default function BlogIndex() {
           <h2 className="mb-4 text-xl font-semibold">{s.label}</h2>
           <div className="space-y-3">
             {s.articles.map((article) => (
-              <Link key={article.slug} href={`/b/${article.slug}`} className="block hover:opacity-70 transition-opacity">
+              <Link
+                key={article.slug}
+                href={`/b/${article.slug}`}
+                className="block"
+              >
                 <Card>
                   <CardHeader className="p-4 pb-2">
                     <CardTitle className="text-base">
@@ -39,9 +48,7 @@ export default function BlogIndex() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 pt-0">
-                    <p className="text-sm">
-                      {article.frontmatter.description}
-                    </p>
+                    <p className="text-sm">{article.frontmatter.description}</p>
                     <p className="mt-1 text-xs">
                       <time dateTime={article.frontmatter.date}>
                         {formatPersianDate(article.frontmatter.date)}
@@ -60,7 +67,11 @@ export default function BlogIndex() {
           <h2 className="mb-4 text-xl font-semibold">مقالات</h2>
           <div className="space-y-3">
             {standalone.map((article) => (
-              <Link key={article.slug} href={`/b/${article.slug}`} className="block hover:opacity-70 transition-opacity">
+              <Link
+                key={article.slug}
+                href={`/b/${article.slug}`}
+                className="block"
+              >
                 <Card>
                   <CardHeader className="p-4 pb-2">
                     <CardTitle className="text-base">
@@ -68,9 +79,7 @@ export default function BlogIndex() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 pt-0">
-                    <p className="text-sm">
-                      {article.frontmatter.description}
-                    </p>
+                    <p className="text-sm">{article.frontmatter.description}</p>
                     <p className="mt-1 text-xs">
                       <time dateTime={article.frontmatter.date}>
                         {formatPersianDate(article.frontmatter.date)}

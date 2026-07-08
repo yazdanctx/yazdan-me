@@ -2,43 +2,43 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-pitch-black: #000;
-  --color-border: hsl(0 0% 18%);
-  --color-input: hsl(0 0% 18%);
-  --color-ring: hsl(0 0% 83%);
-  --color-background: hsl(0 0% 0%);
-  --color-foreground: #fff;
-  --color-primary: #fff;
-  --color-primary-foreground: hsl(0 0% 0%);
-  --color-secondary: hsl(0 0% 11%);
-  --color-secondary-foreground: #fff;
-  --color-destructive: hsl(0 84% 60%);
-  --color-destructive-foreground: #fff;
-  --color-muted: hsl(0 0% 11%);
-  --color-muted-foreground: #fff;
-  --color-accent: hsl(0 0% 11%);
-  --color-accent-foreground: #fff;
-  --color-popover: hsl(0 0% 0%);
-  --color-popover-foreground: #fff;
-  --color-card: hsl(0 0% 0%);
-  --color-card-foreground: #fff;
-  --radius: 0rem;
+    --color-pitch-black: #000;
+    --color-border: hsl(0 0% 18%);
+    --color-input: hsl(0 0% 18%);
+    --color-ring: hsl(0 0% 83%);
+    --color-background: hsl(0 0% 0%);
+    --color-foreground: #fff;
+    --color-primary: #fff;
+    --color-primary-foreground: hsl(0 0% 0%);
+    --color-secondary: hsl(0 0% 11%);
+    --color-secondary-foreground: #fff;
+    --color-destructive: hsl(0 84% 60%);
+    --color-destructive-foreground: #fff;
+    --color-muted: hsl(0 0% 11%);
+    --color-muted-foreground: #fff;
+    --color-accent: hsl(0 0% 11%);
+    --color-accent-foreground: #fff;
+    --color-popover: hsl(0 0% 0%);
+    --color-popover-foreground: #fff;
+    --color-card: hsl(0 0% 11%);
+    --color-card-foreground: #fff;
+    --radius: 5rem;
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
 }
 
 [dir="rtl"] pre,
 [dir="rtl"] code {
-  direction: ltr;
-  text-align: left;
+    direction: ltr;
+    text-align: left;
 }
 
 .prose em,
 .prose i,
 .prose cite,
 .prose blockquote {
-  font-style: normal;
+    font-style: normal;
 }
