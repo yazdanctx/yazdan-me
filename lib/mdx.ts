@@ -8,6 +8,7 @@ export interface ArticleFrontmatter {
   title: string;
   date: string;
   description: string;
+  published?: boolean;
   series?: string;
   part?: number;
   seriesLabel?: string;
@@ -35,9 +36,12 @@ export function getAllArticles(): Article[] {
     const source = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(source);
 
+    const fm = data as ArticleFrontmatter;
+    if (fm.published === false) continue;
+
     articles.push({
       slug,
-      frontmatter: data as ArticleFrontmatter,
+      frontmatter: fm,
       content,
     });
   }
@@ -117,9 +121,12 @@ export function getArticleBySlug(slug: string): Article | null {
   const source = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(source);
 
+  const fm = data as ArticleFrontmatter;
+  if (fm.published === false) return null;
+
   return {
     slug,
-    frontmatter: data as ArticleFrontmatter,
+    frontmatter: fm,
     content,
   };
 }

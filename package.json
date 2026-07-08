@@ -8,6 +8,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "generate-og": "bun run scripts/generate-og-images.ts",
+    "sync-vault": "bun run scripts/sync-vault.ts",
     "test": "playwright test"
   },
   "dependencies": {
