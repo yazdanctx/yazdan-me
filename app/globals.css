@@ -51,5 +51,7 @@ body {
 }
 
 .prose :where(img):not(:where([class~="not-prose"] *)) {
+    display: block;
     margin-inline: auto;
+    border-radius: 0.5rem;
 }
