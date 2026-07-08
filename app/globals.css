@@ -49,3 +49,7 @@ body {
     border-radius: 0.25rem;
     font-weight: 400 !important;
 }
+
+.prose :where(img):not(:where([class~="not-prose"] *)) {
+    margin-inline: auto;
+}
