@@ -1,0 +1,147 @@
+---
+title: "تست کامل مارک‌داون"
+date: "2026-07-08"
+description: "یک مقاله آزمایشی برای تست همه ویژگی‌های مارک‌داون"
+---
+
+این مقاله تمام ویژگی‌های مارک‌داون را برای تست نمایش درست آن‌ها پوشش می‌دهد.
+
+## متن ساده و فرمت‌دهی
+
+متن **bold** و *italic* و ~~خط خورده~~ و `inline code` و ترکیب ***bold و italic***.
+
+## لینک و تصویر
+
+این یک [لینک به گوگل](https://google.com) است.
+
+![توضیح تصویر](https://placehold.co/600x400/000/fff?text=Test+Image)
+
+## نقل قول
+
+> این یک نقل قول بلوکی است.
+>
+> نقل قول می‌تواند چند پاراگراف باشد.
+>
+> > نقل قول تو در تو
+
+## لیست‌ها
+
+### لیست نامرتب
+
+- مورد اول
+- مورد دوم
+  - زیرمجموعه دوم
+    - زیرمجموعه دوم-یک
+  - زیرمجموعه دوم-دو
+- مورد سوم
+
+### لیست مرتب
+
+1. قدم اول
+2. قدم دوم
+   1. زیرقدم دوم-یک
+   2. زیرقدم دوم-دو
+3. قدم سوم
+
+### لیست وظایف
+
+- [x] کار انجام شده
+- [ ] کار انجام نشده
+- [ ] کار دیگر
+
+## کد
+
+### کد درون‌خطی
+
+از تابع `formatDate()` برای فرمت تاریخ استفاده کنید.
+
+### بلاک کد (بدون زبان)
+
+```
+This is a plain code block
+with multiple lines
+no language specified
+```
+
+### بلاک کد با زبان (تست LTR)
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+function greet(user: User): string {
+  return `Hello, ${user.name}!`;
+}
+
+const user: User = {
+  id: 1,
+  name: "Yazdan",
+  email: "yazdan@example.com",
+};
+
+console.log(greet(user));
+```
+
+### بلاک کد جاوااسکریپت
+
+```javascript
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+const result = fibonacci(10);
+console.log(result); // 55
+```
+
+### بلاک کد پایتون
+
+```python
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quicksort(left) + middle + quicksort(right)
+
+print(quicksort([3, 6, 8, 10, 1, 2, 1]))
+```
+
+### بلاک کد bash
+
+```bash
+#!/bin/bash
+for i in {1..5}; do
+  echo "Iteration $i"
+done
+```
+
+## جدول
+
+| عنوان | توضیحات | وضعیت |
+|-------|---------|-------|
+| ویژگی اول | توضیح ویژگی اول | ✅ |
+| ویژگی دوم | توضیح ویژگی دوم | ❌ |
+| ویژگی سوم | توضیح ویژگی سوم | ⏳ |
+| راست‌چین | تست | راست‌چین |
+
+## خط افقی
+
+---
+
+## ترکیب فارسی و انگلیسی
+
+این یک متن **فارسی** با کلمه `variable` انگلیسی است.
+
+> ضرب‌المثل معروف: "**Talk is cheap. Show me the code.**" — Linus Torvalds
+
+```typescript
+// کامنت انگلیسی
+const greeting: string = "سلام دنیا!";
+console.log(greeting);
+```

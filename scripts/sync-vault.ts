@@ -67,7 +67,8 @@ function sync() {
   ensureDir(contentDir);
   ensureDir(assetsDir);
 
-  // Copy .md / .mdx files (.md is renamed to .mdx)
+  // Sync .md / .mdx files from vault to content/ (.md renamed to .mdx)
+  // Never deletes files that only exist in content/ — vault only overwrites, never removes
   const sourceFiles = collectSourceFiles(vaultDir);
   for (const src of sourceFiles) {
     const dest = path.join(contentDir, destFilename(src));
