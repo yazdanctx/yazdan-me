@@ -1,5 +1,10 @@
+import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { getAllArticles, getArticleBySlug } from "@/lib/mdx";
+import {
+  getAllArticles,
+  getArticleBySlug,
+  getSeriesNavigation,
+} from "@/lib/mdx";
 import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
@@ -41,7 +46,40 @@ export default async function ArticlePage({
       <div className="prose prose-invert max-w-none prose-headings:text-white prose-a:text-gray-300 prose-strong:text-white prose-code:text-gray-200">
         <MDXRemote source={article.content} />
       </div>
+
+      <SeriesNav slug={slug} />
     </article>
+  );
+}
+
+function SeriesNav({ slug }: { slug: string }) {
+  const nav = getSeriesNavigation(slug);
+
+  if (!nav) return null;
+
+  return (
+    <nav className="mt-12 flex items-center justify-between border-t border-gray-800 pt-6">
+      {nav.prev ? (
+        <div data-testid="series-prev">
+          <Link
+            href={`/b/${nav.prev.slug}`}
+            className="text-sm text-gray-400 hover:text-white transition-colors"
+          >
+            &larr; {nav.prev.frontmatter.title}
+          </Link>
+        </div>
+      ) : null}
+      {nav.next ? (
+        <div data-testid="series-next" className="ml-auto">
+          <Link
+            href={`/b/${nav.next.slug}`}
+            className="text-sm text-gray-400 hover:text-white transition-colors"
+          >
+            {nav.next.frontmatter.title} &rarr;
+          </Link>
+        </div>
+      ) : null}
+    </nav>
   );
 }
 

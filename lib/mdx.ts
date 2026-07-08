@@ -84,6 +84,32 @@ export function getStandaloneArticles(): Article[] {
     .sort((a, b) => b.frontmatter.date.localeCompare(a.frontmatter.date));
 }
 
+export function getSeriesBySlug(slug: string): Series | null {
+  const allSeries = getSeries();
+  return allSeries.find((s) => s.slug === slug) ?? null;
+}
+
+export interface SeriesNavigation {
+  prev: Article | null;
+  next: Article | null;
+}
+
+export function getSeriesNavigation(slug: string): SeriesNavigation | null {
+  const article = getArticleBySlug(slug);
+  if (!article || !article.frontmatter.series) return null;
+
+  const series = getSeriesBySlug(article.frontmatter.series);
+  if (!series) return null;
+
+  const index = series.articles.findIndex((a) => a.slug === slug);
+  if (index === -1) return null;
+
+  return {
+    prev: index > 0 ? series.articles[index - 1] : null,
+    next: index < series.articles.length - 1 ? series.articles[index + 1] : null,
+  };
+}
+
 export function getArticleBySlug(slug: string): Article | null {
   const filePath = path.join(contentDir, `${slug}.mdx`);
   if (!fs.existsSync(filePath)) return null;
