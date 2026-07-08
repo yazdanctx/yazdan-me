@@ -2,6 +2,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+
+function convertObsidianImageWikilinks(content: string): string {
+  return content.replace(/!\[\[([^\]]+\.\w+)\]\]/g, (_, filename: string) => {
+    const encoded = filename.replace(/ /g, "%20");
+    return `![${filename}](/assets/${encoded})`;
+  });
+}
 import {
   getAllArticles,
   getArticleBySlug,
@@ -67,7 +74,7 @@ export default async function ArticlePage({
       </header>
       <div className="prose prose-invert max-w-none prose-headings:text-white prose-a:text-[#60a5fa] prose-a:underline-offset-4 prose-strong:text-[#fbbf24] prose-em:text-white">
         <MDXRemote
-          source={article.content}
+          source={convertObsidianImageWikilinks(article.content)}
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm],
