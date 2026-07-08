@@ -43,4 +43,9 @@ body {
     font-style: normal;
 }
 
-
+.prose :where(strong):not(:where([class~="not-prose"] *)) {
+    background-color: hsl(0 0% 11%);
+    padding: 0.15em 0.4em;
+    border-radius: 0.25rem;
+    font-weight: 400 !important;
+}
