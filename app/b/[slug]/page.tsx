@@ -61,15 +61,13 @@ export default async function ArticlePage({
         <h1 className="text-3xl font-bold tracking-tight">
           {article.frontmatter.title}
         </h1>
-        <p className="mt-2 text-sm">
+        <p className="mt-2">
           <time dateTime={article.frontmatter.date}>
             {formatPersianDate(article.frontmatter.date)}
           </time>
         </p>
         {article.frontmatter.description && (
-          <p className="mt-4 text-lg">
-            {article.frontmatter.description}
-          </p>
+          <p className="mt-4 text-lg">{article.frontmatter.description}</p>
         )}
       </header>
       <div className="prose prose-invert max-w-none prose-headings:text-white prose-a:text-[#60a5fa] prose-a:underline-offset-4 prose-strong:text-[#fbbf24] prose-em:text-white prose-img:mx-auto prose-img:rounded-lg">

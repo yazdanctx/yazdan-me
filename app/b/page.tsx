@@ -48,7 +48,7 @@ export default function BlogIndex() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 pt-0">
-                    <p className="text-sm">{article.frontmatter.description}</p>
+                    <p>{article.frontmatter.description}</p>
                     <p className="mt-1 text-xs">
                       <time dateTime={article.frontmatter.date}>
                         {formatPersianDate(article.frontmatter.date)}
@@ -79,7 +79,7 @@ export default function BlogIndex() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 pt-0">
-                    <p className="text-sm">{article.frontmatter.description}</p>
+                    <p>{article.frontmatter.description}</p>
                     <p className="mt-1 text-xs">
                       <time dateTime={article.frontmatter.date}>
                         {formatPersianDate(article.frontmatter.date)}

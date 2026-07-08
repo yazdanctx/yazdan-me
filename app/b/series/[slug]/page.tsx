@@ -2,7 +2,12 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getSeries, getSeriesBySlug } from "@/lib/mdx";
 import { notFound } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/lib/components/ui/card";
 import { formatPersianDate } from "@/lib/date";
 
 export function generateStaticParams() {
@@ -60,7 +65,12 @@ export default async function SeriesPage({
 
       <div className="space-y-3">
         {series.articles.map((article) => (
-          <Link key={article.slug} href={`/b/${article.slug}`} data-testid="series-part-link" className="block hover:opacity-70 transition-opacity">
+          <Link
+            key={article.slug}
+            href={`/b/${article.slug}`}
+            data-testid="series-part-link"
+            className="block hover:opacity-70 transition-opacity"
+          >
             <Card>
               <CardHeader className="p-4 pb-2">
                 <CardTitle className="text-base">
@@ -71,9 +81,7 @@ export default async function SeriesPage({
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-4 pt-0">
-                <p className="text-sm">
-                  {article.frontmatter.description}
-                </p>
+                <p>{article.frontmatter.description}</p>
                 <p className="mt-1 text-xs">
                   <time dateTime={article.frontmatter.date}>
                     {formatPersianDate(article.frontmatter.date)}
