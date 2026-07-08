@@ -21,17 +21,22 @@ function ensureDir(dir: string) {
   }
 }
 
-function collectMdxFiles(dir: string): string[] {
+function collectSourceFiles(dir: string): string[] {
   const files: string[] = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory() && entry.name !== "assets") {
-      files.push(...collectMdxFiles(fullPath));
-    } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
+      files.push(...collectSourceFiles(fullPath));
+    } else if (entry.isFile() && (entry.name.endsWith(".md") || entry.name.endsWith(".mdx"))) {
       files.push(fullPath);
     }
   }
   return files;
+}
+
+function destFilename(srcPath: string): string {
+  const name = path.basename(srcPath);
+  return name.endsWith(".md") ? name.replace(/\.md$/, ".mdx") : name;
 }
 
 function collectImageFiles(dir: string): string[] {
@@ -62,11 +67,10 @@ function sync() {
   ensureDir(contentDir);
   ensureDir(assetsDir);
 
-  // Copy .mdx files
-  const mdxFiles = collectMdxFiles(vaultDir);
-  for (const src of mdxFiles) {
-    const filename = path.basename(src);
-    const dest = path.join(contentDir, filename);
+  // Copy .md / .mdx files (.md is renamed to .mdx)
+  const sourceFiles = collectSourceFiles(vaultDir);
+  for (const src of sourceFiles) {
+    const dest = path.join(contentDir, destFilename(src));
     fs.copyFileSync(src, dest);
   }
 
