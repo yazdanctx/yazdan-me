@@ -15,7 +15,9 @@ Content is authored in an Obsidian vault and synced into `content/` via a pollin
 bun run sync-vault
 ```
 
-This polls the vault every 60s, copies `.mdx` files to `content/` and images to `content/assets/`, then auto-commits and pushes.
+This polls the vault every 60s, copies `.md` and `.mdx` files to `content/` (`.md` files are renamed to `.mdx`), copies images to `content/assets/`, then auto-commits and pushes.
+
+Write in plain `.md` in Obsidian — the script handles the conversion.
 
 ### Publishing
 
