@@ -72,7 +72,7 @@ export default async function ArticlePage({
           </p>
         )}
       </header>
-      <div className="prose prose-invert max-w-none prose-headings:text-white prose-a:text-[#60a5fa] prose-a:underline-offset-4 prose-strong:text-[#fbbf24] prose-em:text-white">
+      <div className="prose prose-invert max-w-none prose-headings:text-white prose-a:text-[#60a5fa] prose-a:underline-offset-4 prose-strong:text-[#fbbf24] prose-em:text-white prose-img:mx-auto prose-img:rounded-lg">
         <MDXRemote
           source={convertObsidianImageWikilinks(article.content)}
           options={{
