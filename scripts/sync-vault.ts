@@ -11,7 +11,8 @@ const vaultDir: string = vaultDirEnv;
 
 const repoDir = process.cwd();
 const contentDir = path.join(repoDir, "content");
-const assetsDir = path.join(contentDir, "assets");
+const publicDir = path.join(repoDir, "public");
+const assetsDir = path.join(publicDir, "assets");
 
 const imageExtensions = new Set([".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".avif"]);
 
@@ -25,7 +26,7 @@ function collectSourceFiles(dir: string): string[] {
   const files: string[] = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory() && entry.name !== "assets") {
+    if (entry.isDirectory()) {
       files.push(...collectSourceFiles(fullPath));
     } else if (entry.isFile() && (entry.name.endsWith(".md") || entry.name.endsWith(".mdx"))) {
       files.push(fullPath);
@@ -64,7 +65,7 @@ function gitHasChanges(): boolean {
 function sync() {
   console.log(`[${new Date().toISOString()}] Syncing from vault...`);
 
-  ensureDir(contentDir);
+  ensureDir(publicDir);
   ensureDir(assetsDir);
 
   // Sync .md / .mdx files from vault to content/ (.md renamed to .mdx)

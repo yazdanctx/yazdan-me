@@ -19,6 +19,14 @@ This polls the vault every 60s, copies `.md` and `.mdx` files to `content/` (`.m
 
 Write in plain `.md` in Obsidian — the script handles the conversion.
 
+### Images
+
+Put images anywhere in your vault. The script copies them to `public/assets/` and they're served at `/assets/foo.png`. Reference them in articles as:
+
+```markdown
+![alt text](/assets/image.png)
+```
+
 ### Publishing
 
 Only articles with `published: true` in frontmatter are rendered on the site. Unpublished articles live in the repo for backup but won't appear on the blog.
