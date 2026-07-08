@@ -45,6 +45,45 @@ export function getAllArticles(): Article[] {
   return articles;
 }
 
+export interface Series {
+  slug: string;
+  label: string;
+  articles: Article[];
+}
+
+export function getSeries(): Series[] {
+  const articles = getAllArticles();
+  const seriesMap = new Map<string, Article[]>();
+
+  for (const article of articles) {
+    if (!article.frontmatter.series) continue;
+    const group = seriesMap.get(article.frontmatter.series) ?? [];
+    group.push(article);
+    seriesMap.set(article.frontmatter.series, group);
+  }
+
+  const series: Series[] = [];
+  for (const [slug, group] of seriesMap) {
+    group.sort((a, b) => (a.frontmatter.part ?? 0) - (b.frontmatter.part ?? 0));
+    series.push({
+      slug,
+      label: group[0].frontmatter.seriesLabel ?? slug,
+      articles: group,
+    });
+  }
+
+  series.sort((a, b) => b.articles[0].frontmatter.date.localeCompare(a.articles[0].frontmatter.date));
+
+  return series;
+}
+
+export function getStandaloneArticles(): Article[] {
+  const articles = getAllArticles();
+  return articles
+    .filter((a) => !a.frontmatter.series)
+    .sort((a, b) => b.frontmatter.date.localeCompare(a.frontmatter.date));
+}
+
 export function getArticleBySlug(slug: string): Article | null {
   const filePath = path.join(contentDir, `${slug}.mdx`);
   if (!fs.existsSync(filePath)) return null;
