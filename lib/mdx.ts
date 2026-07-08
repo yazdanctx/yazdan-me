@@ -20,6 +20,19 @@ export interface Article {
   content: string;
 }
 
+function normalizeFrontmatter(data: Record<string, unknown>): ArticleFrontmatter {
+  const fm = data as unknown as Record<string, unknown>;
+  return {
+    title: String(fm.title ?? ""),
+    date: String(fm.date ?? ""),
+    description: String(fm.description ?? ""),
+    published: fm.published as boolean | undefined,
+    series: fm.series as string | undefined,
+    part: fm.part as number | undefined,
+    seriesLabel: fm.seriesLabel as string | undefined,
+  };
+}
+
 export function getAllArticles(): Article[] {
   if (!fs.existsSync(contentDir)) {
     return [];
@@ -36,7 +49,7 @@ export function getAllArticles(): Article[] {
     const source = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(source);
 
-    const fm = data as ArticleFrontmatter;
+    const fm = normalizeFrontmatter(data);
     if (fm.published === false) continue;
 
     articles.push({
@@ -121,7 +134,7 @@ export function getArticleBySlug(slug: string): Article | null {
   const source = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(source);
 
-  const fm = data as ArticleFrontmatter;
+  const fm = normalizeFrontmatter(data);
   if (fm.published === false) return null;
 
   return {
