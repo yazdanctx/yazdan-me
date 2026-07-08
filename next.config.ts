@@ -1,8 +1,14 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  outputFileTracingIncludes: {
-    "/*": ["content/**/*.md"],
+  pageExtensions: ["ts", "tsx", "mdx"],
+  output: "export",
+  trailingSlash: true,
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  images: {
+    unoptimized: true,
   },
 };
 

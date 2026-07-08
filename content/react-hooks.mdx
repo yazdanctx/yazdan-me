@@ -1,0 +1,24 @@
+---
+title: "React Hooks Guide"
+date: "2026-07-05"
+description: "A practical guide to React hooks — useState, useEffect, and custom hooks."
+series: "react-patterns"
+part: 1
+seriesLabel: "React Patterns"
+---
+
+React hooks let you use state and other React features without writing a class.
+
+## useState
+
+```typescript
+const [count, setCount] = useState(0);
+```
+
+## useEffect
+
+```typescript
+useEffect(() => {
+  document.title = `Count: ${count}`;
+}, [count]);
+```
