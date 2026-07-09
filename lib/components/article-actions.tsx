@@ -23,7 +23,7 @@ export function ArticleActions({
           rel="noopener noreferrer"
           className="gap-2"
         >
-          Source
+          Github source
           <FiGithub />
         </a>
       </Button>
@@ -36,7 +36,7 @@ export function ArticleActions({
           setTimeout(() => setCopied(false), 3000);
         }}
       >
-        {copied ? "Copied" : "Copy"}
+        {copied ? "Copied" : "Copy page"}
         {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
       </Button>
     </div>
