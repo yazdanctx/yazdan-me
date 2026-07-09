@@ -2,27 +2,27 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-    --color-pitch-black: #000;
-    --color-border: hsl(0 0% 18%);
-    --color-input: hsl(0 0% 18%);
-    --color-ring: hsl(0 0% 83%);
+    --color-pitch-black: hsl(0 0% 0%);
+    --color-border: hsl(24 6% 25%);
+    --color-input: hsl(24 6% 25%);
+    --color-ring: hsl(24 5% 45%);
     --color-background: hsl(0 0% 0%);
-    --color-foreground: #fff;
-    --color-primary: #fff;
+    --color-foreground: hsl(0 0% 100%);
+    --color-primary: hsl(24 5% 83%);
     --color-primary-foreground: hsl(0 0% 0%);
-    --color-secondary: hsl(0 0% 11%);
-    --color-secondary-foreground: #fff;
-    --color-destructive: hsl(0 84% 60%);
-    --color-destructive-foreground: #fff;
-    --color-muted: hsl(0 0% 11%);
-    --color-muted-foreground: #fff;
-    --color-accent: hsl(0 0% 11%);
-    --color-accent-foreground: #fff;
+    --color-secondary: hsl(24 6% 15%);
+    --color-secondary-foreground: hsl(24 5% 68%);
+    --color-destructive: hsl(0 71% 35%);
+    --color-destructive-foreground: hsl(60 5% 96%);
+    --color-muted: hsl(24 6% 10%);
+    --color-muted-foreground: hsl(24 5% 45%);
+    --color-accent: hsl(24 6% 15%);
+    --color-accent-foreground: hsl(24 6% 90%);
     --color-popover: hsl(0 0% 0%);
-    --color-popover-foreground: #fff;
-    --color-card: hsl(0 0% 11%);
-    --color-card-foreground: #fff;
-    --radius: 5rem;
+    --color-popover-foreground: hsl(24 5% 83%);
+    --color-card: hsl(24 6% 10%);
+    --color-card-foreground: hsl(24 5% 83%);
+    --radius: 0.25rem;
 }
 
 body {
@@ -30,10 +30,43 @@ body {
     color: var(--color-foreground);
 }
 
+a {
+    @apply text-blue-400 no-underline;
+}
+
+a:visited {
+    @apply text-purple-400;
+}
+
+a:hover {
+    @apply underline;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    scroll-margin-top: 80px;
+}
+
 [dir="rtl"] pre,
 [dir="rtl"] code {
     direction: ltr;
     text-align: left;
+}
+
+.prose a {
+    @apply text-blue-400 no-underline;
+}
+
+.prose a:visited {
+    @apply text-purple-500;
+}
+
+.prose a:hover {
+    @apply underline;
 }
 
 .prose em,
@@ -43,10 +76,14 @@ body {
     font-style: normal;
 }
 
+nav a:visited,
+header a:visited {
+    @apply text-blue-400;
+}
+
 .prose :where(strong):not(:where([class~="not-prose"] *)) {
-    background-color: hsl(0 0% 11%);
-    padding: 0.15em 0.4em;
+    background-color: hsl(24 6% 15%);
+    padding: 0em 0.3em;
     border-radius: 0.25rem;
     font-weight: 400 !important;
 }
-

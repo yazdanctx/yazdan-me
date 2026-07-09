@@ -35,3 +35,25 @@ _Avoid_: visible, draft, status
 **Media Asset**:
 An image or other binary file referenced in an article. Stored in `content/assets/` alongside the articles. Copied from the vault during sync.
 _Avoid_: Attachment, resource, file
+
+# Article Rendering
+
+**Table of Contents (TOC)**:
+A nested list of headings (`h1`–`h6`) extracted from the article's MDX source, rendered at the top of the article for in-page navigation. Uses semantic nesting (tracks actual heading levels, so an `h4` after an `h2` nests under that `h2`). Each entry links to its corresponding heading via a `Heading ID`.
+_Avoid_: Outline, index, heading list
+
+**Heading ID**:
+A slugified identifier generated from heading text (e.g. `"What is a Token"` → `"what-is-a-token"`). Used as the `id` attribute on rendered `<h1>`–`<h6>` elements and as the `href` target in TOC links for smooth scrolling.
+_Avoid_: Anchor, slug, hash
+
+**Article Navigation**:
+Prev/next navigation between articles at the bottom of each article page. Rendered as outline-styled links with Lucide icons. Applies to all articles (ordered by date), not just series.
+_Avoid_: Bottom nav, pagination, post nav
+
+**Series Navigation**:
+Article navigation limited to articles within the same series (same `series` frontmatter value), ordered by `part`. Falls back to `Article Navigation` when no series is active.
+_Avoid_: Series pagination, collection nav
+
+**Series**:
+A named collection of articles sharing a `series` frontmatter value, ordered by `part`. Each series has a canonical slug and a human-readable label (`seriesLabel`). Rendered as a list on the series index page and navigated sequentially via `Series Navigation`.
+_Avoid_: Collection, group, playlist

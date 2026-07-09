@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import GithubSlugger from "github-slugger";
 
 const contentDir = path.join(process.cwd(), "content");
 
@@ -12,6 +13,57 @@ export interface ArticleFrontmatter {
   series?: string;
   part?: number;
   seriesLabel?: string;
+}
+
+export interface TocEntry {
+  value: string;
+  depth: number;
+  id: string;
+  children: TocEntry[];
+}
+
+function cleanHeading(text: string): string {
+  return text.replace(/\*\*/g, "").trim();
+}
+
+export function extractToc(content: string): TocEntry[] {
+  const slugger = new GithubSlugger();
+  const headingRegex = /^(#{1,6})\s+(.+)$/gm;
+  const headings: { level: number; text: string; id: string }[] = [];
+
+  let match;
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = match[1].length;
+    const text = cleanHeading(match[2]);
+    const id = slugger.slug(text);
+    headings.push({ level, text, id });
+  }
+
+  const root: TocEntry[] = [];
+  const stack: TocEntry[] = [];
+
+  for (const h of headings) {
+    const entry: TocEntry = {
+      value: h.text,
+      depth: h.level,
+      id: h.id,
+      children: [],
+    };
+
+    while (stack.length > 0 && stack[stack.length - 1].depth >= h.level) {
+      stack.pop();
+    }
+
+    if (stack.length === 0) {
+      root.push(entry);
+    } else {
+      stack[stack.length - 1].children.push(entry);
+    }
+
+    stack.push(entry);
+  }
+
+  return root;
 }
 
 export interface Article {
@@ -124,6 +176,24 @@ export function getSeriesNavigation(slug: string): SeriesNavigation | null {
   return {
     prev: index > 0 ? series.articles[index - 1] : null,
     next: index < series.articles.length - 1 ? series.articles[index + 1] : null,
+  };
+}
+
+export function getArticleNavigation(slug: string): {
+  prev: Article | null;
+  next: Article | null;
+} | null {
+  const articles = getAllArticles();
+  articles.sort((a, b) =>
+    b.frontmatter.date.localeCompare(a.frontmatter.date),
+  );
+
+  const index = articles.findIndex((a) => a.slug === slug);
+  if (index === -1) return null;
+
+  return {
+    prev: index < articles.length - 1 ? articles[index + 1] : null,
+    next: index > 0 ? articles[index - 1] : null,
   };
 }
 

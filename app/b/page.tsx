@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getSeries, getStandaloneArticles } from "@/lib/mdx";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/lib/components/ui/card";
-import { formatPersianDate } from "@/lib/date";
+import { ArticleCard } from "@/lib/components/article-card";
 import Image from "next/image";
 import profileImage from "../_assets/profile.jpg";
 import { socialLinks } from "@/lib/social-links";
@@ -23,12 +16,12 @@ export default function BlogIndex() {
   const standalone = getStandaloneArticles();
 
   return (
-    <div>
-      <header className="mb-12">
+    <div className="grid gap-10">
+      <header className="">
         <section className="flex flex-col gap-3">
           <Image
             src={profileImage}
-            alt=""
+            alt="yazdanctx"
             width={90}
             height={90}
             className="rounded-full"
@@ -49,7 +42,7 @@ export default function BlogIndex() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sky-400 underline underline-offset-4"
+                  className=""
                 >
                   {link.label}
                 </a>
@@ -64,32 +57,7 @@ export default function BlogIndex() {
           <h2 className="mb-4 text-xl font-semibold">{s.label}</h2>
           <div className="space-y-3">
             {s.articles.map((article) => (
-              <Link
-                key={article.slug}
-                href={`/b/${article.slug}`}
-                className="block"
-              >
-                <Card>
-                  <CardHeader className="p-4 pb-2">
-                    <CardTitle className="text-base">
-                      {article.frontmatter.part && (
-                        <span className="ml-2 font-normal">
-                          بخش {article.frontmatter.part}
-                        </span>
-                      )}
-                      {article.frontmatter.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-4 pt-0">
-                    <p>{article.frontmatter.description}</p>
-                    <p className="mt-2">
-                      <time dateTime={article.frontmatter.date}>
-                        {formatPersianDate(article.frontmatter.date)}
-                      </time>
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
+              <ArticleCard key={article.slug} article={article} />
             ))}
           </div>
         </section>
@@ -100,27 +68,7 @@ export default function BlogIndex() {
           <h2 className="mb-4 text-xl font-semibold">مقالات</h2>
           <div className="space-y-3">
             {standalone.map((article) => (
-              <Link
-                key={article.slug}
-                href={`/b/${article.slug}`}
-                className="block"
-              >
-                <Card>
-                  <CardHeader className="p-4 pb-2">
-                    <CardTitle className="text-base">
-                      {article.frontmatter.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-4 pt-0">
-                    <p>{article.frontmatter.description}</p>
-                    <p className="mt-1">
-                      <time dateTime={article.frontmatter.date}>
-                        {formatPersianDate(article.frontmatter.date)}
-                      </time>
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
+              <ArticleCard key={article.slug} article={article} />
             ))}
           </div>
         </section>
