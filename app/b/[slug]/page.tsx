@@ -102,7 +102,7 @@ export default async function ArticlePage({
               width={1800}
               height={423}
               priority
-              className="w-full h-auto border-none"
+              className="w-full h-auto border-none bg-white"
             />
           )}
 
