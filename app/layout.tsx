@@ -13,8 +13,8 @@ const peyda = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "وبلاگ یزدان",
-  description: "وبلاگ شخصی فنی",
+  title: "Antimatter 0.1",
+  description: "اینجا از خودم و چیزهایی که یاد میگیرم مینویسم.",
   metadataBase: new URL("https://yazdan.me"),
   openGraph: {
     images: ["/og/default.png"],
