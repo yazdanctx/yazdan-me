@@ -27,7 +27,7 @@ export interface TocEntry {
 }
 
 function cleanHeading(text: string): string {
-  return text.replace(/\*\*/g, "").trim();
+  return text.replace(/(\*\*|__|`|~~|[*_])/g, "").trim();
 }
 
 export function extractToc(content: string): TocEntry[] {

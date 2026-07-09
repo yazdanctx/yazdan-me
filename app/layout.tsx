@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" className={peyda.className}>
       <body className="min-h-screen bg-pitch-black antialiased">
-        <nav className="border-b border-border sticky top-0 bg-background">
+        <nav className="border-b border-border sticky z-10 top-0 bg-background">
           <div className="mx-auto flex max-w-3xl items-center gap-4 px-4 py-2">
             <Link href="/" className="ml-auto">
               <Button variant="outline" size="icon">
