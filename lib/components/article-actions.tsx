@@ -37,7 +37,7 @@ export function ArticleActions({
         }}
       >
         {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
-        {copied ? "Copied" : "Copy page"}
+        {copied ? "کپی شد" : "کپی کردن صفحه"}
       </Button>
     </div>
   );
