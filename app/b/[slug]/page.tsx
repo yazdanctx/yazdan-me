@@ -100,7 +100,7 @@ export default async function ArticlePage({
               src={article.frontmatter.banner}
               alt={article.frontmatter.title}
               width={1800}
-              height={422}
+              height={423}
               priority
               className="w-full h-auto border-none"
             />
