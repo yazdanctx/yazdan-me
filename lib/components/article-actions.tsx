@@ -1,6 +1,7 @@
 "use client";
 
-import { Copy, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { Copy, Github, Check } from "lucide-react";
 import { Button } from "@/lib/components/ui/button";
 
 export function ArticleActions({
@@ -10,6 +11,8 @@ export function ArticleActions({
   slug: string;
   content: string;
 }) {
+  const [copied, setCopied] = useState(false);
+
   return (
     <div className="flex gap-2">
       <Button variant="outline" size="sm" asChild>
@@ -19,18 +22,22 @@ export function ArticleActions({
           rel="noopener noreferrer"
           className="gap-2"
         >
-          <ExternalLink className="size-4" />
-          سورس
+          <Github className="size-4" />
+          Source
         </a>
       </Button>
       <Button
         variant="outline"
         size="sm"
         className="gap-2"
-        onClick={() => navigator.clipboard.writeText(content)}
+        onClick={() => {
+          navigator.clipboard.writeText(content);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 3000);
+        }}
       >
-        <Copy className="size-4" />
-        کپی مطلب
+        {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+        {copied ? "Copied" : "Copy"}
       </Button>
     </div>
   );
