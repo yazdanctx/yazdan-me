@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Github, Check } from "lucide-react";
+import { Copy, FileCode, Check } from "lucide-react";
 import { Button } from "@/lib/components/ui/button";
 
 export function ArticleActions({
@@ -22,7 +22,7 @@ export function ArticleActions({
           rel="noopener noreferrer"
           className="gap-2"
         >
-          <Github className="size-4" />
+          <FileCode className="size-4" />
           Source
         </a>
       </Button>
