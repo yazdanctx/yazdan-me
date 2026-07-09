@@ -21,7 +21,7 @@ export function ArticleActions({
           href={`https://github.com/yazdanctx/yazdan-me/blob/main/content/${slug}.mdx`}
           target="_blank"
           rel="noopener noreferrer"
-          className="gap-2"
+          className="gap-2 text-white hover:no-underline"
         >
           <FiGithub />
           سورس گیتهاب
