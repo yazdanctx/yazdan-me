@@ -53,7 +53,7 @@ export default function BlogIndex() {
       </header>
 
       {series.map((s) => (
-        <section key={s.slug} className="mb-10">
+        <section key={s.slug}>
           <h2 className="mb-4 text-lg sm:text-xl font-semibold">{s.label}</h2>
           <div className="space-y-3">
             {s.articles.map((article) => (
