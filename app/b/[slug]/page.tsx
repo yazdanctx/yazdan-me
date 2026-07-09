@@ -79,9 +79,12 @@ export default async function ArticlePage({
           </time>
         </div>
         {article.frontmatter.description && (
-          <p className="text-sm sm:text-base md:text-lg">{article.frontmatter.description}</p>
+          <p className="text-sm sm:text-base md:text-lg">
+            {article.frontmatter.description}
+          </p>
         )}
         <TableOfContents items={toc} />
+        <ArticleActions slug={article.slug} content={article.content} />
       </header>
 
       <div className="prose prose-invert max-w-none prose-headings:text-stone-200 prose-strong:text-yellow-600 prose-em:text-stone-200 prose-img:w-full">
@@ -95,8 +98,6 @@ export default async function ArticlePage({
           }}
         />
       </div>
-
-      <ArticleActions slug={article.slug} content={article.content} />
 
       {nav ? <ArticleNavigation prev={nav.prev} next={nav.next} /> : null}
     </article>
