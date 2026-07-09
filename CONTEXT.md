@@ -13,23 +13,23 @@ A published piece of content with frontmatter (`title`, `date`, `description`) a
 _Avoid_: Post, note, page
 
 **Draft**:
-An article in the vault that is not yet ready to publish. Identified by the absence of `published: true` in its frontmatter. The sync script copies it as a `.draft.mdx` file, which the article reader ignores.
+An article not yet ready to publish. Identified by `published: false` (or absence of `published: true`) in its frontmatter. The sync script copies it alongside published articles — filtering happens at build time, not sync time. Hidden from production builds. In local dev (`next dev`), drafts appear in a separate "پیش‌نویس‌ها" section on the blog index and are accessible at their article URL.
 _Avoid_: Unpublished article, WIP
 
 **Sync Watcher**:
-A polling script (`scripts/sync-vault.ts`) that periodically checks the vault for changes and copies `.mdx` files into the repo's `content/` directory, renaming drafts to `.draft.mdx`. Runs with debounced batch commits.
+A polling script (`scripts/sync-vault.ts`) that periodically checks the vault for changes and copies all `.md`/`.mdx` files into the repo's `content/` directory (renaming `.md` to `.mdx`). Does not inspect frontmatter — filtering is the build's responsibility. Runs with debounced batch commits.
 _Avoid_: Sync script, vault watcher, publisher
 
 **Content Directory**:
-The `content/` folder in the repo. The single source of truth for the build — Next.js reads `.mdx` files from here (never `.draft.mdx`). Articles are rendered by `lib/mdx.ts`.
+The `content/` folder in the repo. The single source of truth for the build — Next.js reads `.mdx` files from here. Articles are rendered by `lib/mdx.ts`.
 _Avoid_: Articles folder, posts directory
 
 **Publish**:
-The act of an article being copied as `.mdx` (not `.draft.mdx`) into the content directory and committed to the repo, triggering a Vercel deploy.
+The act of setting `published: true` in an article's frontmatter and syncing from the vault, committing the change to the repo, and triggering a Vercel deploy.
 _Avoid_: Deploy, release, go live
 
 **Frontmatter `published`**:
-A boolean field in the article's YAML frontmatter. Only articles with `published: true` are copied as `.mdx` (publishable). Articles without this field or with `published: false` become `.draft.mdx`.
+A boolean field in the article's YAML frontmatter. Articles with `published: true` are included in production builds. Articles without this field or with `published: false` are treated as drafts — hidden in production, visible in local dev.
 _Avoid_: visible, draft, status
 
 **Media Asset**:

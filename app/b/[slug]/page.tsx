@@ -11,10 +11,12 @@ function convertObsidianImageWikilinks(content: string): string {
 }
 import {
   getAllArticles,
+  getDraftArticles,
   getArticleBySlug,
   extractToc,
   getArticleNavigation,
   getSeriesNavigation,
+  isDev,
 } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 import { formatPersianDate } from "@/lib/date";
@@ -24,9 +26,14 @@ import { ArticleNavigation } from "@/lib/components/article-navigation";
 
 export function generateStaticParams() {
   const articles = getAllArticles();
-  return articles.map((article) => ({
-    slug: article.slug,
-  }));
+  const slugs = articles.map((article) => ({ slug: article.slug }));
+
+  if (isDev()) {
+    const drafts = getDraftArticles();
+    slugs.push(...drafts.map((article) => ({ slug: article.slug })));
+  }
+
+  return slugs;
 }
 
 export async function generateMetadata({
@@ -61,8 +68,9 @@ export default async function ArticlePage({
   }
 
   const toc = extractToc(article.content);
-  const seriesNav = getSeriesNavigation(slug);
-  const nav = seriesNav ?? getArticleNavigation(slug);
+  const isDraft = article.frontmatter.published === false;
+  const seriesNav = !isDraft ? getSeriesNavigation(slug) : null;
+  const nav = !isDraft ? (seriesNav ?? getArticleNavigation(slug)) : null;
 
   return (
     <article className="grid gap-6 sm:gap-10">

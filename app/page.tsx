@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getSeries, getStandaloneArticles } from "@/lib/mdx";
+import { getSeries, getStandaloneArticles, getDraftArticles, isDev } from "@/lib/mdx";
 import { ArticleCard } from "@/lib/components/article-card";
 import Image from "next/image";
 import profileImage from "./_assets/profile.jpg";
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 export default function Page() {
   const series = getSeries();
   const standalone = getStandaloneArticles();
+  const drafts = isDev() ? getDraftArticles() : [];
 
   return (
     <div className="grid gap-10">
@@ -68,6 +69,17 @@ export default function Page() {
           <h2 className="mb-4 text-lg sm:text-xl font-semibold">مقالات</h2>
           <div className="space-y-3">
             {standalone.map((article) => (
+              <ArticleCard key={article.slug} article={article} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {drafts.length > 0 && (
+        <section>
+          <h2 className="mb-4 text-lg sm:text-xl font-semibold">پیش‌نویس‌ها</h2>
+          <div className="space-y-3">
+            {drafts.map((article) => (
               <ArticleCard key={article.slug} article={article} />
             ))}
           </div>

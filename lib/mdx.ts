@@ -5,6 +5,10 @@ import GithubSlugger from "github-slugger";
 
 const contentDir = path.join(process.cwd(), "content");
 
+export function isDev(): boolean {
+  return process.env.NODE_ENV === "development";
+}
+
 export interface ArticleFrontmatter {
   title: string;
   date: string;
@@ -114,6 +118,35 @@ export function getAllArticles(): Article[] {
   return articles;
 }
 
+export function getDraftArticles(): Article[] {
+  if (!fs.existsSync(contentDir)) {
+    return [];
+  }
+
+  const files = fs.readdirSync(contentDir);
+  const articles: Article[] = [];
+
+  for (const file of files) {
+    if (!file.endsWith(".mdx")) continue;
+
+    const slug = file.replace(/\.mdx$/, "");
+    const filePath = path.join(contentDir, file);
+    const source = fs.readFileSync(filePath, "utf-8");
+    const { data, content } = matter(source);
+
+    const fm = normalizeFrontmatter(data);
+    if (fm.published !== false) continue;
+
+    articles.push({
+      slug,
+      frontmatter: fm,
+      content,
+    });
+  }
+
+  return articles;
+}
+
 export interface Series {
   slug: string;
   label: string;
@@ -183,6 +216,9 @@ export function getArticleNavigation(slug: string): {
   prev: Article | null;
   next: Article | null;
 } | null {
+  const article = getArticleBySlug(slug);
+  if (!article || article.frontmatter.published === false) return null;
+
   const articles = getAllArticles();
   articles.sort((a, b) =>
     b.frontmatter.date.localeCompare(a.frontmatter.date),
@@ -205,7 +241,7 @@ export function getArticleBySlug(slug: string): Article | null {
   const { data, content } = matter(source);
 
   const fm = normalizeFrontmatter(data);
-  if (fm.published === false) return null;
+  if (fm.published === false && !isDev()) return null;
 
   return {
     slug,
