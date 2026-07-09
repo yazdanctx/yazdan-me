@@ -85,9 +85,31 @@ h6 {
 
 .prose em,
 .prose i,
-.prose cite,
+.prose cite {
+    font-style: normal;
+}
+
 .prose blockquote {
     font-style: normal;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    padding: 1.25rem;
+    padding-inline-end: 2.75rem;
+    position: relative;
+}
+
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+    content: none;
+}
+
+.prose blockquote::before {
+    content: "💡";
+    position: absolute;
+    top: 1.25rem;
+    inset-inline-end: 1rem;
+    font-size: 1.25rem;
+    line-height: 1;
 }
 
 nav a:visited,

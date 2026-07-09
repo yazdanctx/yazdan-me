@@ -17,6 +17,7 @@ export interface ArticleFrontmatter {
   series?: string;
   part?: number;
   seriesLabel?: string;
+  banner?: string;
 }
 
 export interface TocEntry {
@@ -92,6 +93,7 @@ function normalizeFrontmatter(data: Record<string, unknown>): ArticleFrontmatter
     series: fm.series as string | undefined,
     part: fm.part as number | undefined,
     seriesLabel: fm.seriesLabel as string | undefined,
+    banner: fm.banner as string | undefined,
   };
 }
 

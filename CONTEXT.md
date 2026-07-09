@@ -2,6 +2,10 @@
 
 This project is a Persian-language personal blog (yazdan.me) built with Next.js static export. Content is authored in an Obsidian vault outside the repo, synced into the `content/` directory by a polling script, then deployed to Vercel via git push.
 
+**Banner**:
+A full-width hero image at the top of an article page, above the title. Specified in frontmatter as a `banner` field containing the image path (e.g., `banner: /assets/banners/tcp-ip.png`). Rendered with `next/image` for CLS prevention and lazy loading; uses `priority` since the banner is above the fold. Fixed dimensions: 1800×430.
+_Avoid_: Hero image, cover, header image
+
 ## Language
 
 **Vault**:

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
@@ -75,6 +76,16 @@ export default async function ArticlePage({
 
   return (
     <article className="grid gap-6 sm:gap-10">
+      {article.frontmatter.banner && (
+        <Image
+          src={article.frontmatter.banner}
+          alt={article.frontmatter.title}
+          width={1800}
+          height={430}
+          priority
+          className="w-full h-auto"
+        />
+      )}
       <header className="grid gap-3">
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
