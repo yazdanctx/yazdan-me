@@ -76,13 +76,19 @@ export interface Article {
   content: string;
 }
 
+function normalizePublished(value: unknown): boolean | undefined {
+  if (value === true || value === "true") return true;
+  if (value === false || value === "false") return false;
+  return undefined;
+}
+
 function normalizeFrontmatter(data: Record<string, unknown>): ArticleFrontmatter {
   const fm = data as unknown as Record<string, unknown>;
   return {
     title: String(fm.title ?? ""),
     date: String(fm.date ?? ""),
     description: String(fm.description ?? ""),
-    published: fm.published as boolean | undefined,
+    published: normalizePublished(fm.published),
     series: fm.series as string | undefined,
     part: fm.part as number | undefined,
     seriesLabel: fm.seriesLabel as string | undefined,
