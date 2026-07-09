@@ -23,6 +23,7 @@ import { formatPersianDate } from "@/lib/date";
 import { TableOfContents } from "@/lib/components/toc";
 import { ArticleActions } from "@/lib/components/article-actions";
 import { ArticleNavigation } from "@/lib/components/article-navigation";
+import { CodeBlockEnhancer } from "@/lib/components/code-block-enhancer";
 
 export function generateStaticParams() {
   const articles = getAllArticles();
@@ -95,16 +96,18 @@ export default async function ArticlePage({
         <ArticleActions slug={article.slug} content={article.content} />
       </header>
 
-      <div className="prose prose-invert max-w-none prose-headings:text-stone-200 prose-strong:text-yellow-600 prose-em:text-stone-200 prose-img:w-full">
-        <MDXRemote
-          source={convertObsidianImageWikilinks(article.content)}
-          options={{
-            mdxOptions: {
-              remarkPlugins: [remarkGfm],
-              rehypePlugins: [rehypeSlug],
-            },
-          }}
-        />
+      <div className="prose prose-invert max-w-none prose-headings:text-stone-200 prose-em:text-stone-200 prose-code:text-yellow-700 prose-img:w-full">
+        <CodeBlockEnhancer>
+          <MDXRemote
+            source={convertObsidianImageWikilinks(article.content)}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+                rehypePlugins: [rehypeSlug],
+              },
+            }}
+          />
+        </CodeBlockEnhancer>
       </div>
 
       {nav ? <ArticleNavigation prev={nav.prev} next={nav.next} /> : null}

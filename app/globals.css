@@ -36,7 +36,10 @@ img {
     border: 1px solid var(--color-border);
 }
 
-video, pre, code, table {
+video,
+pre,
+code,
+table {
     max-width: 100%;
     overflow-x: auto;
 }
@@ -92,9 +95,12 @@ header a:visited {
     @apply text-blue-400;
 }
 
-.prose :where(strong):not(:where([class~="not-prose"] *)) {
-    background-color: hsl(24 6% 15%);
-    padding: 0em 0.3em;
-    border-radius: 0.25rem;
-    font-weight: 400 !important;
+.prose pre {
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    position: relative;
+}
+
+.prose pre code {
+    color: white;
 }
