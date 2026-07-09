@@ -15,7 +15,7 @@ export function ArticleActions({
 
   return (
     <div className="flex gap-2">
-      <Button variant="outline" size="sm" asChild>
+      <Button variant="outline" asChild>
         <a
           href={`https://github.com/yazdanctx/yazdan-me/blob/main/content/${slug}.mdx`}
           target="_blank"
@@ -28,7 +28,6 @@ export function ArticleActions({
       </Button>
       <Button
         variant="outline"
-        size="sm"
         className="gap-2"
         onClick={() => {
           navigator.clipboard.writeText(content);
