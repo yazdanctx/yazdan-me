@@ -8,6 +8,9 @@ import {
   CardTitle,
 } from "@/lib/components/ui/card";
 import { formatPersianDate } from "@/lib/date";
+import Image from "next/image";
+import profileImage from "../_assets/profile.jpg";
+import { socialLinks } from "@/lib/social-links";
 
 export const metadata: Metadata = {
   openGraph: {
@@ -22,8 +25,38 @@ export default function BlogIndex() {
   return (
     <div>
       <header className="mb-12">
-        <h1 className="text-4xl font-bold tracking-tight">وبلاگ</h1>
-        <p className="mt-2">مقالات و راهنماهای فنی</p>
+        <section className="flex flex-col gap-3">
+          <Image
+            src={profileImage}
+            alt=""
+            width={90}
+            height={90}
+            className="rounded-full"
+          />
+          <div className="flex flex-col gap-3">
+            <h1 className="text-lg">سلام! من یزدان هستم 👋</h1>
+            <p>
+              به امنیت، شبکه و برنامه نویسی علاقه دارم. دچار سندرم آسپرگر هستم و
+              ارتباط با آدم ها برام چالش برانگیزه در نتیجه بیشتر زمانم روی پای
+              کامپیوتر و یادگیری میگذرونم. اینجا از خودم و چیزایی که یاد میگیرم
+              مینویسم. اگر باهام کار داشتی از طریق چنل تلگرامم بهم مسج بده،
+              معمولا خیلی زود جواب میدم.
+            </p>
+            <div className="flex gap-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sky-400 underline underline-offset-4"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
       </header>
 
       {series.map((s) => (
