@@ -16,7 +16,7 @@ function NavButton({
     <Button variant="outline" asChild>
       <Link href={`/b/${article.slug}`} className="gap-2">
         {isPrev && <ChevronRight className="size-4 shrink-0" />}
-        <span className="truncate max-w-40">{article.frontmatter.title}</span>
+        <span className="truncate max-w-28 sm:max-w-40">{article.frontmatter.title}</span>
         {!isPrev && <ChevronLeft className="size-4 shrink-0" />}
       </Link>
     </Button>

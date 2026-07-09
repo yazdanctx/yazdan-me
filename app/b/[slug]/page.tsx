@@ -64,21 +64,21 @@ export default async function ArticlePage({
   const nav = seriesNav ?? getArticleNavigation(slug);
 
   return (
-    <article className="grid gap-10">
+    <article className="grid gap-6 sm:gap-10">
       <header className="grid gap-3">
-        <div className="flex items-center gap-3 flex">
-          <h1 className="text-3xl font-bold tracking-tight">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
             {article.frontmatter.title}
           </h1>
           <time
             dateTime={article.frontmatter.date}
-            className="text-sm px-1 py-0.5 bg-muted text-secondary-foreground"
+            className="shrink-0 text-xs px-1.5 py-0.5 bg-muted text-secondary-foreground"
           >
             {formatPersianDate(article.frontmatter.date)}
           </time>
         </div>
         {article.frontmatter.description && (
-          <p className="text-lg">{article.frontmatter.description}</p>
+          <p className="text-sm sm:text-base md:text-lg">{article.frontmatter.description}</p>
         )}
         <TableOfContents items={toc} />
       </header>

@@ -28,6 +28,12 @@
 body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    overflow-x: hidden;
+}
+
+img, video, pre, code, table {
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 a {
