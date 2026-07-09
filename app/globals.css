@@ -31,7 +31,12 @@ body {
     overflow-x: hidden;
 }
 
-img, video, pre, code, table {
+img {
+    width: 100%;
+    border: 1px solid var(--color-border);
+}
+
+video, pre, code, table {
     max-width: 100%;
     overflow-x: auto;
 }

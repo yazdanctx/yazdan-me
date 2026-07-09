@@ -24,7 +24,7 @@ export default function BlogIndex() {
             alt="yazdanctx"
             width={90}
             height={90}
-            className="rounded-full"
+            className="max-w-[90px]"
           />
           <div className="flex flex-col gap-3">
             <h1 className="text-base sm:text-lg">سلام! من یزدان هستم 👋</h1>

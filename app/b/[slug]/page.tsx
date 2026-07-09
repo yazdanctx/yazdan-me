@@ -83,7 +83,7 @@ export default async function ArticlePage({
         <TableOfContents items={toc} />
       </header>
 
-      <div className="prose prose-invert max-w-none prose-headings:text-stone-200 prose-strong:text-yellow-600 prose-em:text-stone-200 prose-img:mx-auto prose-img:rounded-lg">
+      <div className="prose prose-invert max-w-none prose-headings:text-stone-200 prose-strong:text-yellow-600 prose-em:text-stone-200 prose-img:w-full">
         <MDXRemote
           source={convertObsidianImageWikilinks(article.content)}
           options={{
