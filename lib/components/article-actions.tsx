@@ -16,16 +16,18 @@ export function ArticleActions({
 
   return (
     <div className="flex gap-2">
-      <Button variant="outline" asChild>
-        <a
-          href={`https://github.com/yazdanctx/yazdan-me/blob/main/content/${slug}.mdx`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="gap-2 text-white hover:no-underline"
-        >
-          <FiGithub />
-          سورس گیتهاب
-        </a>
+      <Button
+        variant="outline"
+        className="gap-2"
+        onClick={() =>
+          window.open(
+            `https://github.com/yazdanctx/yazdan-me/blob/main/content/${slug}.mdx`,
+            "_blank",
+          )
+        }
+      >
+        <FiGithub />
+        سورس گیتهاب
       </Button>
       <Button
         variant="outline"
