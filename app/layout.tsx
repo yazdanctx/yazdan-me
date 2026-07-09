@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const iranyekan = localFont({
-  src: "./fonts/IRANYekanXFaNum-Regular.woff2",
+const peyda = localFont({
+  src: "./fonts/PeydaFaNumWeb-Regular.woff2",
   display: "swap",
 });
 
@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa" dir="rtl" className={iranyekan.className}>
+    <html lang="fa" dir="rtl" className={peyda.className}>
       <body className="min-h-screen bg-pitch-black antialiased">
         <main className="mx-auto max-w-3xl px-4 py-12">{children}</main>
       </body>
