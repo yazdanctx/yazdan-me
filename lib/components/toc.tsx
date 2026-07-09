@@ -32,7 +32,7 @@ export function TableOfContents({ items }: { items: TocEntry[] }) {
   if (items.length === 0) return null;
 
   return (
-    <nav className="border border-border p-4">
+    <nav className="p-4">
       <TocList items={items} />
     </nav>
   );

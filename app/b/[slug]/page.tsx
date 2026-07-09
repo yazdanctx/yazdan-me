@@ -76,16 +76,6 @@ export default async function ArticlePage({
 
   return (
     <article className="grid gap-6 sm:gap-10">
-      {article.frontmatter.banner && (
-        <Image
-          src={article.frontmatter.banner}
-          alt={article.frontmatter.title}
-          width={1800}
-          height={430}
-          priority
-          className="w-full h-auto"
-        />
-      )}
       <header className="grid gap-3">
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
@@ -103,7 +93,21 @@ export default async function ArticlePage({
             {article.frontmatter.description}
           </p>
         )}
-        <TableOfContents items={toc} />
+
+        <div className="border border-border">
+          {article.frontmatter.banner && (
+            <Image
+              src={article.frontmatter.banner}
+              alt={article.frontmatter.title}
+              width={1800}
+              height={430}
+              priority
+              className="w-full h-auto border-none"
+            />
+          )}
+
+          <TableOfContents items={toc} />
+        </div>
         <ArticleActions slug={article.slug} content={article.content} />
       </header>
 
