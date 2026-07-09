@@ -5,6 +5,7 @@ import { Home } from "lucide-react";
 import { socialLinks } from "@/lib/social-links";
 import "./globals.css";
 import { Button } from "@/lib/components/ui/button";
+import { FiGithub } from "react-icons/fi";
 
 const peyda = localFont({
   src: "./fonts/PeydaFaNumWeb-Regular.woff2",
@@ -50,9 +51,13 @@ export default function RootLayout({
         </nav>
         <main className="mx-auto max-w-3xl px-4 py-6 sm:py-10">{children}</main>
         <footer className="border-t border-border">
-          <div className="mx-auto flex items-center gap-5 max-w-3xl px-4 py-6 text-sm text-muted-foreground">
+          <div className="mx-auto flex items-center justify-between gap-5 max-w-3xl px-4 py-6  text-muted-foreground">
             <p>با خودت و دیگران مهربون باش، ماچ به کله ات 💋</p>
-            <a href="https://github.com/yazdanctx/yazdan-me">
+            <a
+              href="https://github.com/yazdanctx/yazdan-me"
+              className="flex items-center gap-1"
+            >
+              <FiGithub />
               سورس کد روی گیتهاب
             </a>
           </div>
