@@ -56,6 +56,7 @@ export default function RootLayout({
             <a
               href="https://github.com/yazdanctx/yazdan-me"
               className="flex items-center gap-1"
+              target="_blank"
             >
               <FiGithub className="mt-0.5" />
               سورس کد روی گیتهاب
