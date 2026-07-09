@@ -49,6 +49,10 @@ export default function RootLayout({
           </div>
         </nav>
         <main className="mx-auto max-w-3xl px-4 py-6 sm:py-10">{children}</main>
+        <footer className="mx-auto max-w-3xl px-4 py-6 text-sm text-muted-foreground">
+          <hr className="mb-4 border-border" />
+          <p>yazdan.me</p>
+        </footer>
       </body>
     </html>
   );
