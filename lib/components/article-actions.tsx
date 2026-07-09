@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Copy, FileCode, Check } from "lucide-react";
 import { Button } from "@/lib/components/ui/button";
+import { FiGithub } from "react-icons/fi";
 
 export function ArticleActions({
   slug,
@@ -22,7 +23,7 @@ export function ArticleActions({
           rel="noopener noreferrer"
           className="gap-2"
         >
-          <FileCode className="size-4" />
+          <FiGithub />
           Source
         </a>
       </Button>
