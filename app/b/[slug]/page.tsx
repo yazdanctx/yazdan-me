@@ -19,6 +19,7 @@ import {
 import { notFound } from "next/navigation";
 import { formatPersianDate } from "@/lib/date";
 import { TableOfContents } from "@/lib/components/toc";
+import { ArticleActions } from "@/lib/components/article-actions";
 import { ArticleNavigation } from "@/lib/components/article-navigation";
 
 export function generateStaticParams() {
@@ -94,6 +95,8 @@ export default async function ArticlePage({
           }}
         />
       </div>
+
+      <ArticleActions slug={article.slug} content={article.content} />
 
       {nav ? <ArticleNavigation prev={nav.prev} next={nav.next} /> : null}
     </article>
