@@ -272,19 +272,14 @@ curl https://divar.ir/
 curl -I https://divar.ir/
 ```
 
-با اضافه کردن فلگ `I` ، دستور `curl` فقط header هارو برات برمیگردونه:
+با اضافه کردن فلگ `I` ، دستور `curl` فقط header هارو برات برمیگردونه که یک چیزی مشابه این هست:
  ‍
  ```
- HTTP/2 200
+HTTP/2 200
 date: Fri, 10 Jul 2026 22:04:54 GMT
 content-type: text/html; charset=utf-8
 content-length: 114657
 vary: Accept-Encoding
-vary: Accept-Encoding
-set-cookie: did=6bf0c08e-4683-4fc0-a165-643c2448561b; Max-Age=63072000; Domain=.divar.ir; Path=/; Expires=Sun, 09 Jul 2028 22:04:54 GMT; SameSite=Lax
-set-cookie: cdid=45ec704f-2fdb-4cbd-b7b4-082e78ce0c20; Max-Age=63072000; Domain=.divar.ir; Path=/; Expires=Sun, 09 Jul 2028 22:04:54 GMT; SameSite=Lax
-set-cookie: ff=%7B%22f%22%3A%7B%22foreigner_payment_enabled%22%3Atrue%2C%22enable_filter_post_count_web%22%3Atrue%2C%22enable_non_lazy_image_post_card%22%3Atrue%2C%22device_fp_enable%22%3Atrue%2C%22enable-places-selector-online-search-web%22%3Atrue%2C%22chat_message_disabled%22%3Atrue%2C%22web_sentry_sample_rate%22%3A0.2%2C%22is_web_otp_enabled%22%3Atrue%2C%22is_web_proactive_refresh_enabled%22%3Atrue%2C%22post-stats-batch-event-web-enabled%22%3Atrue%2C%22post-stats-batch-event-web-max-batch-size%22%3A%2220%22%2C%22post-stats-batch-event-web-flush-interval-sec%22%3A%2220%22%7D%2C%22e%22%3A1783724694542%2C%22r%22%3A1783807494542%7D; Max-Age=86400; Domain=.divar.ir; Path=/; Expires=Sat, 11 Jul 2026 22:04:54 GMT; SameSite=Lax
-content-security-policy: default-src 'self'; media-src https://*.divarcdn.com 'self' blob: https://*.cdn.edge.sotoon.ir https://api.arcaptcha.ir; script-src https://www.gstatic.com 'self' https://touch.radif.ai https://*.cdn.edge.sotoon.ir https://*.doubleclick.net https://*.google-analytics.com https://*.divarcdn.com https://*.analytics.google.com 'unsafe-inline' https://www.clarity.ms https://www.googletagmanager.com https://google-analytics.com https://analytics.google.com https://www.googleadservices.com; worker-src https://www.gstatic.com 'self' https://*.cdn.edge.sotoon.ir blob:; style-src https://*.divarcdn.com 'self' 'unsafe-inline' https://www.googletagmanager.com https://fonts.googleapis.com https://*.cdn.edge.sotoon.ir; img-src https://c.bing.com 'self' data: blob: https://www.google.com https://map.divar.ir https://trustseal.enamad.ir https://*.openstreetmap.org https://www.google.nl https://www.google.de https://www.google.ae https://www.google.fr https://www.google.ca https://www.google.bh https://www.google.com.bh https://www.google.co.uk https://www.google.com.au https://logo.samandehi.ir https://api.divar.ir https://*.cdn.edge.sotoon.ir https://*.balad.ir https://*.divarcdn.com https://api.arcaptcha.ir https://*.analytics.google.com https://*.google-analytics.com https://www.googletagmanager.com https://google-analytics.com https://analytics.google.com https://*.clarity.ms; connect-src https://c.bing.com 'self' https://touch.radif.ai https://www.google.com https://*.analytics.google.com https://*.google-analytics.com https://*.cdn.edge.sotoon.ir https://www.googleadservices.com https://*.doubleclick.net https://*.divarcdn.com https://api-divar.neshan.org https://*.divar.ir https://*.googleapis.com https://sentry.divar.cloud wss://submit-warning.divar.ir https://tiles.raah.ir https://api.arcaptcha.ir https://ap.api.fpjs.io wss://live.divar.cloud https://live.divar.cloud https://google-analytics.com https://analytics.google.com https://*.clarity.ms; font-src https://*.divarcdn.com 'self' data: https://*.cdn.edge.sotoon.ir https://fonts.gstatic.com https://*.arcaptcha.ir; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; frame-src https://www.googletagmanager.com https://*.doubleclick.net https://*.cdn.edge.sotoon.ir 'self'; child-src blob: 'self'; manifest-src https://*.cdn.edge.sotoon.ir 'self'; upgrade-insecure-requests; block-all-mixed-content; script-src-elem https://www.gstatic.com 'self' https://touch.radif.ai https://*.doubleclick.net 'unsafe-inline' https://google-analytics.com https://*.divarcdn.com https://*.analytics.google.com https://*.google-analytics.com https://www.clarity.ms https://www.googletagmanager.com https://*.cdn.edge.sotoon.ir https://analytics.google.com https://www.googleadservices.com; script-src-attr https://www.gstatic.com 'self' https://touch.radif.ai https://*.doubleclick.net 'unsafe-inline' https://google-analytics.com https://*.divarcdn.com https://*.analytics.google.com https://*.google-analytics.com https://www.clarity.ms https://www.googletagmanager.com https://*.cdn.edge.sotoon.ir https://analytics.google.com https://www.googleadservices.com; style-src-elem https://*.divarcdn.com 'self' 'unsafe-inline' https://www.googletagmanager.com https://fonts.googleapis.com https://*.cdn.edge.sotoon.ir; style-src-attr https://*.divarcdn.com 'self' 'unsafe-inline' https://www.googletagmanager.com https://fonts.googleapis.com https://*.cdn.edge.sotoon.ir
 x-dns-prefetch-control: on
 expect-ct: max-age=0
 x-frame-options: DENY
@@ -304,3 +299,5 @@ x-zrk-sn: 2002
 accept-ranges: bytes
 accept-ranges: bytes
  ```
+
+این مثلا زمانی به کار میاد که شما داری یک HTTP server رو دیب
