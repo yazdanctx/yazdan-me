@@ -304,6 +304,10 @@ accept-ranges: bytes
 
 بعد شما میتونی از `HTTP method` های مختلف هم استفاده بکنی و با همین `curl` درخواست `POST` و `DELETE` و اینا هم بزنی.
 
-مثلا همون مثالی که بالاتر 
+مثلا همون مثال `POST` که بالاتر با netcat زدم رو بیا با curl هم پیاده سازی کنیم:
+
+```
+curl -X POST http://local POST / { │host:5000 -d title=whatever
+```
 
 ![[Screenshot 2026-07-11 at 1.45.40 AM.png]]
