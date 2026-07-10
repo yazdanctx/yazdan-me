@@ -307,7 +307,9 @@ accept-ranges: bytes
 مثلا همون مثال `POST` که بالاتر با netcat زدم رو بیا با curl هم پیاده سازی کنیم:
 
 ```
-curl -X POST http://local POST / { │host:5000 -d title=whatever
+curl -X POST http://localhost:5000 -d title=whatever
 ```
+
+اینجا با استفاده از فلگ `X` میایم
 
 ![[Screenshot 2026-07-11 at 1.45.40 AM.png]]
