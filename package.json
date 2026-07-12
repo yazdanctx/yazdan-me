@@ -12,6 +12,7 @@
     "test": "playwright test"
   },
   "dependencies": {
+    "@radix-ui/react-scroll-area": "^1.2.14",
     "@radix-ui/react-slot": "^1.3.0",
     "@tailwindcss/postcss": "^4.3.2",
     "@tailwindcss/typography": "^0.5.20",
