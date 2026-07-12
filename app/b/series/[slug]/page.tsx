@@ -53,7 +53,7 @@ export default async function SeriesPage({
       <header className="mb-10">
         <Link
           href="/b/"
-          className="text-sm hover:opacity-70 transition-opacity"
+          className="link text-sm hover:opacity-70 transition-opacity"
         >
           &rarr; بازگشت به وبلاگ
         </Link>
@@ -69,7 +69,7 @@ export default async function SeriesPage({
             key={article.slug}
             href={`/b/${article.slug}`}
             data-testid="series-part-link"
-            className="block hover:opacity-70 transition-opacity"
+            className="link block hover:opacity-70 transition-opacity"
           >
             <Card>
               <CardHeader className="p-4 pb-2">

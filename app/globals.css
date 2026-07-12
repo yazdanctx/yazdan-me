@@ -28,7 +28,7 @@
 body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 img {
@@ -44,15 +44,15 @@ table {
     overflow-x: auto;
 }
 
-a {
+.link {
     @apply text-blue-400 no-underline;
 }
 
-a:visited {
+.link:visited {
     @apply text-purple-400;
 }
 
-a:hover {
+.link:hover {
     @apply underline;
 }
 
@@ -112,8 +112,8 @@ h6 {
     line-height: 1;
 }
 
-nav a:visited,
-header a:visited {
+nav .link:visited,
+header .link:visited {
     @apply text-blue-400;
 }
 

@@ -111,7 +111,7 @@ export default async function ArticlePage({
         <ArticleActions slug={article.slug} content={article.content} />
       </header>
 
-      <div className="prose prose-invert max-w-none prose-headings:text-stone-200 prose-em:text-stone-200 prose-code:text-yellow-700 prose-img:w-full">
+      <div className="prose prose-invert max-w-none overflow-hidden prose-headings:text-stone-200 prose-em:text-stone-200 prose-code:text-yellow-700 prose-img:w-full">
         <CodeBlockEnhancer>
           <MDXRemote
             source={convertObsidianImageWikilinks(article.content)}
