@@ -12,9 +12,10 @@ export function CodeBlockEnhancer({ children }: { children: ReactNode }) {
       if (pre.dataset.enhanced) return;
       pre.dataset.enhanced = "true";
 
-      if (getComputedStyle(pre).position === "static") {
-        pre.style.position = "relative";
-      }
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
 
       const btn = document.createElement("button");
       btn.className =
@@ -41,9 +42,9 @@ export function CodeBlockEnhancer({ children }: { children: ReactNode }) {
         } catch {}
       });
 
-      pre.appendChild(btn);
+      wrapper.appendChild(btn);
     });
   }, []);
 
-  return <div ref={ref}>{children}</div>;
+  return <div ref={ref} className="overflow-hidden">{children}</div>;
 }
