@@ -61,3 +61,21 @@ _Avoid_: Series pagination, collection nav
 **Series**:
 A named collection of articles sharing a `series` frontmatter value, ordered by `part`. Each series has a canonical slug and a human-readable label (`seriesLabel`). Rendered as a list on the series index page and navigated sequentially via `Series Navigation`.
 _Avoid_: Collection, group, playlist
+
+# AI Dictionary
+
+**Entry**:
+A single dictionary term. Stored as a `.md` file in `app/ai-dictionary/dictionary/`. The filename (e.g. `Token.md`) is the canonical title. Frontmatter contains only `description`. Body is markdown with wiki-links to other entries.
+_Avoid_: Term, dictionary term, definition
+
+**Wiki-link**:
+An inline markdown link between dictionary entries, using Obsidian-style relative paths (e.g. `[model](./Model.md)`). Rendered as clickable links that navigate to the target entry's page at `/ai-dictionary/[slug]`.
+_Avoid_: Internal link, cross-reference, backlink
+
+**Dictionary Search**:
+Fuzzy matching against both entry titles (filenames) and entry body content. Runs client-side — all entries are loaded as JSON and searched in the browser. Instant filtered results as the user types.
+_Avoid_: Full-text search, query, lookup
+
+**Entry Page**:
+The individual view of a dictionary entry at `/ai-dictionary/[slug]`. Renders the entry's markdown body with wiki-links resolved to navigation. Simplified compared to Article rendering — no TOC, no banner, no series/article navigation.
+_Avoid_: Term page, definition page
