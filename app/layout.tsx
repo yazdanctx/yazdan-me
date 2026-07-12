@@ -51,7 +51,7 @@ export default function RootLayout({
         </nav>
         <main className="mx-auto max-w-3xl px-4 py-6 sm:py-10">{children}</main>
         <footer className="border-t border-border">
-          <div className="mx-auto flex items-center justify-between gap-5 max-w-3xl px-4 py-6  text-muted-foreground">
+          <div className="mx-auto md:flex items-center justify-between gap-5 max-w-3xl px-4 py-6  text-muted-foreground">
             <p>با خودت و دیگران مهربون باش، ماچ به کله ات 💋</p>
             <a
               href="https://github.com/yazdanctx/yazdan-me"

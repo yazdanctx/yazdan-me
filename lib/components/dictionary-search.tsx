@@ -42,18 +42,16 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
         className="w-full border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-ring"
       />
 
-      <div className="grid gap-1">
+      <div className="border border-border">
         {displayEntries.map((entry) => (
           <Link
             key={entry.slug}
             href={`/ai-dictionary/${entry.slug}`}
-            className="link border border-border px-3 py-2 hover:bg-muted transition-colors"
+            className="block border-b border-border p-4 last:border-b-0 hover:bg-muted"
           >
-            <span className="font-medium text-sm">{entry.title}</span>
+            <span className="font-medium">{entry.title}</span>
             {entry.description && (
-              <p className="text-xs text-secondary-foreground mt-1 line-clamp-2">
-                {entry.description}
-              </p>
+              <p className="text-secondary-foreground">{entry.description}</p>
             )}
           </Link>
         ))}

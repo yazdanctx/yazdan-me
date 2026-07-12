@@ -22,10 +22,10 @@ export default function DictionaryPage() {
     <div className="grid gap-6">
       <header>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
-          AI Dictionary
+          دیکشنری هوش مصنوعی
         </h1>
         <p className="text-sm text-secondary-foreground mt-1">
-          Search AI terms and concepts.
+          در مورد کانسپت های هوش مصوعی سرچ بزن
         </p>
       </header>
 

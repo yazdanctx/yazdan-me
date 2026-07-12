@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getSeries, getStandaloneArticles, getDraftArticles, isDev } from "@/lib/mdx";
-import { ArticleCard } from "@/lib/components/article-card";
+import { ArticleSection } from "@/lib/components/article-section";
 import Image from "next/image";
 import profileImage from "../_assets/profile.jpg";
 import { socialLinks } from "@/lib/social-links";
@@ -54,36 +54,15 @@ export default function BlogIndex() {
       </header>
 
       {series.map((s) => (
-        <section key={s.slug}>
-          <h2 className="mb-4 text-lg sm:text-xl font-semibold">{s.label}</h2>
-          <div className="space-y-3">
-            {s.articles.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
-            ))}
-          </div>
-        </section>
+        <ArticleSection key={s.slug} title={s.label} articles={s.articles} />
       ))}
 
       {standalone.length > 0 && (
-        <section>
-          <h2 className="mb-4 text-lg sm:text-xl font-semibold">مقالات</h2>
-          <div className="space-y-3">
-            {standalone.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
-            ))}
-          </div>
-        </section>
+        <ArticleSection title="مقالات" articles={standalone} />
       )}
 
       {drafts.length > 0 && (
-        <section>
-          <h2 className="mb-4 text-lg sm:text-xl font-semibold">پیش‌نویس‌ها</h2>
-          <div className="space-y-3">
-            {drafts.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
-            ))}
-          </div>
-        </section>
+        <ArticleSection title="پیش‌نویس‌ها" articles={drafts} />
       )}
     </div>
   );
