@@ -43,7 +43,7 @@ export default function BlogIndex() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className=""
+                  className="link"
                 >
                   {link.label}
                 </a>

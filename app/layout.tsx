@@ -31,7 +31,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-pitch-black antialiased">
         <nav className="border-b border-border sticky z-10 top-0 bg-background">
           <div className="mx-auto flex max-w-3xl items-center gap-4 px-4 py-2">
-            <Link href="/" className="ml-auto">
+            <Link href="/" className="link ml-auto">
               <Button variant="outline" size="icon">
                 <Home className="size-4 text-white" />
               </Button>
@@ -42,7 +42,7 @@ export default function RootLayout({
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className=""
+                className="link"
               >
                 {link.label}
               </a>
@@ -55,7 +55,7 @@ export default function RootLayout({
             <p>با خودت و دیگران مهربون باش، ماچ به کله ات 💋</p>
             <a
               href="https://github.com/yazdanctx/yazdan-me"
-              className="flex items-center gap-1"
+              className="link flex items-center gap-1"
               target="_blank"
             >
               <FiGithub className="mt-0.5" />

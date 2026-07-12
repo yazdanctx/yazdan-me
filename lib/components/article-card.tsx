@@ -6,7 +6,7 @@ export function ArticleCard({ article }: { article: Article }) {
   return (
     <article>
       <h3>
-        <Link href={`/b/${article.slug}`} className="block">
+        <Link href={`/b/${article.slug}`} className="link block">
           {article.frontmatter.part && (
             <span>قسمت {article.frontmatter.part} - </span>
           )}

@@ -5,7 +5,7 @@ export default function NotFound() {
     <div className="flex flex-col items-start gap-4">
       <h1 className="text-2xl font-bold">۴۰۴</h1>
       <p>صفحه‌ای که دنبالش هستی وجود نداره.</p>
-      <Link href="/" className="text-blue-400 hover:underline">
+      <Link href="/" className="link">
         برگرد به خونه
       </Link>
     </div>
