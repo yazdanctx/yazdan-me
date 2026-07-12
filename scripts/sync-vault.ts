@@ -99,7 +99,4 @@ function sync() {
   }
 }
 
-const interval = parseInt(process.env.SYNC_INTERVAL_SEC || "60", 10) * 1000;
-console.log(`Watching vault at ${vaultDir} every ${interval / 1000}s`);
 sync();
-setInterval(sync, interval);
