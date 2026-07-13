@@ -9,7 +9,21 @@ const dictionaryDir = path.join(
 
 export interface DictionaryEntry {
   slug: string;
+  englishTitle: string;
+  farsiTitle: string;
   description: string;
+  category: string;
+  order: number;
+  content: string;
+}
+
+export interface DictionaryEntryIndex {
+  slug: string;
+  englishTitle: string;
+  farsiTitle: string;
+  description: string;
+  category: string;
+  order: number;
   content: string;
 }
 
@@ -43,12 +57,20 @@ export function getAllEntries(): DictionaryEntry[] {
 
     entries.push({
       slug: filenameToSlug(file),
+      englishTitle: String(data["english-title"] ?? ""),
+      farsiTitle: String(data["farsi-title"] ?? ""),
       description: String(data.description ?? ""),
+      category: String(data.category ?? "uncategorized"),
+      order: Number(data.order ?? 0),
       content,
     });
   }
 
-  return entries;
+  return entries.sort((a, b) => {
+    const catCmp = a.category.localeCompare(b.category);
+    if (catCmp !== 0) return catCmp;
+    return a.order - b.order;
+  });
 }
 
 export function getEntryBySlug(slug: string): DictionaryEntry | null {
@@ -61,7 +83,11 @@ export function getEntryBySlug(slug: string): DictionaryEntry | null {
 
   return {
     slug,
+    englishTitle: String(data["english-title"] ?? ""),
+    farsiTitle: String(data["farsi-title"] ?? ""),
     description: String(data.description ?? ""),
+    category: String(data.category ?? "uncategorized"),
+    order: Number(data.order ?? 0),
     content,
   };
 }

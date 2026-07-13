@@ -10,11 +10,11 @@ export function DictionaryCard() {
     >
       <div className="p-5 flex flex-col items-start md:p-7 w-full">
         <h3 className="font-semibold text-lg mb-2 flex flex-col ">
-          واژه نامه ای برای کدنویسی با هوش مصنوعی
+          واژه نامه هوش مصنوعی
         </h3>
         <p className="text-secondary-foreground text">
-          اینجا مفاهیم مرتبط با کدنویسی ایجنتیک رو به صورت ساده و خلاصه رو طبقه
-          بندی کردم.
+          اینجا مفاهیم مرتبط با ابزار های ایجنتیک رو به صورت ساده و خلاصه رو
+          طبقه بندی کردم.
         </p>
       </div>
       <div className="sm:h-[270px] flex justify-center sm:block w-full relative">

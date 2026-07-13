@@ -5,6 +5,7 @@ import Image from "next/image";
 import frieren1 from "./_assets/frieren-1.avif";
 import { Button } from "@/lib/components/ui/button";
 import { FiGithub } from "react-icons/fi";
+import { ExternalLink } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "AI Dictionary",
@@ -14,11 +15,11 @@ export const metadata: Metadata = {
 export default function DictionaryPage() {
   const entries = getAllEntries().map((e) => ({
     slug: e.slug,
-    title: e.slug
-      .split("-")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" "),
+    englishTitle: e.englishTitle,
+    farsiTitle: e.farsiTitle,
     description: e.description,
+    category: e.category,
+    order: e.order,
     content: e.content,
   }));
 
@@ -29,21 +30,32 @@ export default function DictionaryPage() {
           <div className="w-full flex flex-col gap-2 items-start">
             <h1 className="font-semibold flex flex-col text text-xl md:text-4xl mb-2">
               <span>واژه نامه هوش مصنوعی</span>
-              <span>برای برنامه نویس ها</span>
             </h1>
             <p className="text-secondary-foreground text">
-              اصطلاحات و مفاهیم پرکاربرد در کدنویسی ایجنتیک، با زبان ساده و بدون
-              پیچوندن مباحث.
+              اصطلاحات و مفاهیم پرکاربرد در ابزار های ایجنتیک، با زبان ساده و
+              بدون پیچوندن مباحث.
             </p>
-            <Button asChild>
-              <a
-                href="https://github.com/yazdanctx/yazdan-me/app/ai-dictionary"
-                className="flex items-center gap-1"
-              >
-                <FiGithub />
-                سورس گیتهاب
-              </a>
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button asChild>
+                <a
+                  href="https://www.aihero.dev/ai-coding-dictionary"
+                  className="flex items-center gap-1"
+                >
+                  <FiGithub />
+                  سورس گیتهاب
+                </a>
+              </Button>
+
+              <Button variant="ghost" asChild>
+                <a
+                  href="https://github.com/yazdanctx/yazdan-me/app/ai-dictionary"
+                  className="flex items-center gap-1"
+                >
+                  <ExternalLink size={14} />
+                  رفرنس انگلیسی
+                </a>
+              </Button>
+            </div>
           </div>
           <div className="w-full relative">
             <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent z-5" />
