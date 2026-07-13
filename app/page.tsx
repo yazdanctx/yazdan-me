@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { getSeries, getStandaloneArticles, getDraftArticles, isDev } from "@/lib/mdx";
+import {
+  getSeries,
+  getStandaloneArticles,
+  getDraftArticles,
+  isDev,
+} from "@/lib/mdx";
 import { ArticleSection } from "@/lib/components/article-section";
 import Image from "next/image";
 import profileImage from "./_assets/profile.jpg";
 import { socialLinks } from "@/lib/social-links";
+import { DictionaryCard } from "./ai-dictionary/_components/dictionary-card";
 
 export const metadata: Metadata = {
   openGraph: {
@@ -52,6 +58,11 @@ export default function Page() {
           </div>
         </section>
       </header>
+
+      <section>
+        <h2 className="mb-4 text-lg sm:text-xl font-semibold">ابزار ها</h2>
+        <DictionaryCard />
+      </section>
 
       {series.map((s) => (
         <ArticleSection key={s.slug} title={s.label} articles={s.articles} />
