@@ -60,7 +60,7 @@ export default function Page() {
       </header>
 
       <section>
-        <h2 className="mb-4 text-lg sm:text-xl font-semibold">ابزار ها</h2>
+        <h2 className="mb-4 text-lg sm:text-2xl font-semibold">ابزار ها</h2>
         <DictionaryCard />
       </section>
 

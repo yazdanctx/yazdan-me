@@ -10,7 +10,7 @@ export function ArticleSection({
 }) {
   return (
     <section>
-      <h2 className="mb-4 text-lg sm:text-xl font-semibold">{title}</h2>
+      <h2 className="mb-4 text-lg sm:text-2xl font-semibold">{title}</h2>
       <div className="border border-border">
         {articles.map((article, i) => (
           <ArticleCard
