@@ -25,13 +25,13 @@ export default function Page() {
   return (
     <div className="grid gap-10">
       <header className="">
-        <section className="flex flex-col gap-3">
+        <section className="flex flex-col gap-3 items-start">
           <Image
             src={profileImage}
             alt="yazdanctx"
             width={90}
             height={90}
-            className="max-w-[90px]"
+            className="max-w-[90px] rounded-full"
           />
           <div className="flex flex-col gap-3">
             <h1 className="text-base sm:text-lg">سلام! من یزدان هستم 👋</h1>
