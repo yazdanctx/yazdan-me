@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import { Input } from "@/lib/components/ui/input";
+import { useQueryState } from "nuqs";
 
 interface Entry {
   slug: string;
@@ -44,7 +45,7 @@ function highlight(text: string, query: string): React.ReactNode {
 }
 
 export function DictionarySearch({ entries }: { entries: Entry[] }) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useQueryState("q", { defaultValue: "" });
 
   const categories = useMemo(() => {
     const map = new Map<string, Entry[]>();
@@ -88,7 +89,7 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
         type="text"
         placeholder="جست و جو ..."
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => setQuery(e.target.value || null)}
       />
 
       {filteredCategories.map(([category, items]) => (
@@ -99,7 +100,7 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
               <Link
                 className="p-5 bg-muted border border-muted hover:border-yellow-700"
                 key={entry.slug}
-                href={`/ai-dictionary/${entry.slug}`}
+                href={`/ai-dictionary/${entry.slug}?q=${encodeURIComponent(query)}`}
               >
                 <span className="font-medium">
                   {highlight(entry.englishTitle, q)}

@@ -10,6 +10,7 @@ import {
 } from "@/lib/dictionary";
 import { CodeBlockEnhancer } from "@/lib/components/code-block-enhancer";
 import { DictionaryNav } from "../_components/dictionary-nav";
+import { DictionaryBackButton } from "../_components/dictionary-back-button";
 
 export function generateStaticParams() {
   return getEntrySlugs().map((slug) => ({ slug }));
@@ -62,6 +63,8 @@ export default async function DictionaryEntryPage({
 
   return (
     <article className="grid gap-6">
+      <DictionaryBackButton />
+
       <header className="grid gap-2">
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
           {entry.englishTitle}
