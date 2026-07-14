@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HiArrowLeft, HiArrowRight } from "react-icons/hi2";
+import { HiChevronRight, HiChevronLeft } from "react-icons/hi2";
 
 interface NavEntry {
   slug: string;
@@ -21,9 +21,9 @@ export function DictionaryNav({ prev, next }: DictionaryNavProps) {
           href={`/ai-dictionary/${prev.slug}`}
           className="flex items-center gap-3 p-5 bg-muted border border-muted hover:border-yellow-700"
         >
-          <HiArrowLeft className="shrink-0" />
+          <HiChevronRight className="shrink-0" />
           <div className="grid gap-1">
-            <span className="text-xs text-secondary-foreground">Prev</span>
+            <span className="text-xs text-secondary-foreground">قبلی</span>
             <span className="font-medium">{prev.englishTitle}</span>
           </div>
         </Link>
@@ -36,10 +36,10 @@ export function DictionaryNav({ prev, next }: DictionaryNavProps) {
           className="flex items-center gap-3 p-5 bg-muted border border-muted hover:border-yellow-700 justify-end text-right"
         >
           <div className="grid gap-1">
-            <span className="text-xs text-secondary-foreground">Next</span>
+            <span className="text-xs text-secondary-foreground">بعدی</span>
             <span className="font-medium">{next.englishTitle}</span>
           </div>
-          <HiArrowRight className="shrink-0" />
+          <HiChevronLeft className="shrink-0" />
         </Link>
       ) : (
         <div />

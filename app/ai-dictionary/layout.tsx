@@ -24,7 +24,8 @@ export default function DictionaryLayout({
             <div className="flex items-center gap-2">
               <Button asChild>
                 <a
-                  href="https://www.aihero.dev/ai-coding-dictionary"
+                  href="https://github.com/yazdanctx/yazdan-me/app/ai-dictionary"
+                  target="_blank"
                   className="flex items-center gap-1"
                 >
                   <FiGithub />
@@ -34,7 +35,8 @@ export default function DictionaryLayout({
 
               <Button variant="ghost" asChild>
                 <a
-                  href="https://github.com/yazdanctx/yazdan-me/app/ai-dictionary"
+                  href="https://www.aihero.dev/ai-coding-dictionary"
+                  target="_blank"
                   className="flex items-center gap-1"
                 >
                   <ExternalLink size={14} />

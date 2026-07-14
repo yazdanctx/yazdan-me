@@ -77,12 +77,6 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
       .filter(([, items]) => items.length > 0);
   }, [categories, q]);
 
-  const formatCategory = (cat: string) =>
-    cat
-      .split("-")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
-
   return (
     <div className="grid gap-6">
       <Input
@@ -94,7 +88,10 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
 
       {filteredCategories.map(([category, items]) => (
         <div key={category} className="grid gap-3">
-          <h2 className="text-lg font-semibold">{formatCategory(category)}</h2>
+          <h2 className="text-lg font-semibold text-left">
+            {category}
+            <span className="text-yellow-700 text-xl"> #</span>
+          </h2>
           <div className="grid gap-2 md:grid-cols-2">
             {items.map((entry) => (
               <Link
@@ -102,11 +99,11 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
                 key={entry.slug}
                 href={`/ai-dictionary/${entry.slug}?q=${encodeURIComponent(query)}`}
               >
-                <span className="font-medium">
+                <span className="font-medium w-full">
                   {highlight(entry.englishTitle, q)}
                 </span>
                 {entry.description && (
-                  <p className="text-secondary-foreground">
+                  <p className="text-secondary-foreground text-sm">
                     {highlight(entry.description, q)}
                   </p>
                 )}
