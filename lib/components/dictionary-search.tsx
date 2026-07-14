@@ -86,12 +86,12 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
       />
 
       {filteredCategories.map(([category, items]) => (
-        <div key={category} className="grid gap-3">
+        <div key={category} className="grid gap-5">
           <h2 className="text-lg font-semibold text-left">
             {category}
             <span className="text-yellow-700 text-xl"> #</span>
           </h2>
-          <div className="grid gap-2 md:grid-cols-2">
+          <div className="grid gap-1 md:grid-cols-2">
             {items.map((entry) => (
               <Link
                 className="p-5 bg-muted border border-muted hover:border-yellow-700"
