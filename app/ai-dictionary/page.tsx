@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getAllEntries } from "@/lib/dictionary";
 import { DictionarySearch } from "@/lib/components/dictionary-search";
 
@@ -18,5 +19,9 @@ export default function DictionaryPage() {
     content: e.content,
   }));
 
-  return <DictionarySearch entries={entries} />;
+  return (
+    <Suspense>
+      <DictionarySearch entries={entries} />
+    </Suspense>
+  );
 }
