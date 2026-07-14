@@ -1,67 +1,123 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
+import { Input } from "@/lib/components/ui/input";
+import { useQueryState } from "nuqs";
 
 interface Entry {
   slug: string;
-  title: string;
+  englishTitle: string;
+  farsiTitle: string;
   description: string;
+  category: string;
+  order: number;
   content: string;
 }
 
+function rankEntry(entry: Entry, q: string): number {
+  if (!q) return 0;
+  const title = entry.englishTitle.toLowerCase();
+  if (title === q) return 0;
+  if (title.startsWith(q)) return 1;
+  if (title.includes(q)) return 2;
+  if (entry.farsiTitle.toLowerCase().includes(q)) return 3;
+  if (entry.description.toLowerCase().includes(q)) return 4;
+  return 5;
+}
+
+function highlight(text: string, query: string): React.ReactNode {
+  if (!query) return text;
+  const regex = new RegExp(
+    `(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+    "gi",
+  );
+  const parts = text.split(regex);
+  return parts.map((part, i) =>
+    regex.test(part) ? (
+      <mark key={i} className="bg-yellow-700/30 text-yellow-200">
+        {part}
+      </mark>
+    ) : (
+      part
+    ),
+  );
+}
+
 export function DictionarySearch({ entries }: { entries: Entry[] }) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useQueryState("q", { defaultValue: "" });
 
-  const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return null;
-    return entries
-      .filter(
-        (e) =>
-          e.title.toLowerCase().includes(q) ||
-          e.description.toLowerCase().includes(q) ||
-          e.content.toLowerCase().includes(q),
-      )
-      .sort((a, b) => {
-        const aTitle = a.title.toLowerCase().includes(q) ? 0 : 1;
-        const bTitle = b.title.toLowerCase().includes(q) ? 0 : 1;
-        return aTitle - bTitle;
-      });
-  }, [query, entries]);
+  const categories = useMemo(() => {
+    const map = new Map<string, Entry[]>();
+    for (const entry of entries) {
+      const list = map.get(entry.category) ?? [];
+      list.push(entry);
+      map.set(entry.category, list);
+    }
+    return Array.from(map.entries()).sort(([a], [b]) => a.localeCompare(b));
+  }, [entries]);
 
-  const displayEntries = results ?? entries;
+  const q = query.trim().toLowerCase();
+
+  const filteredCategories = useMemo(() => {
+    if (!q) return categories;
+    return categories
+      .map(([category, items]) => {
+        const filtered = items
+          .filter(
+            (e) =>
+              e.englishTitle.toLowerCase().includes(q) ||
+              e.farsiTitle.toLowerCase().includes(q) ||
+              e.description.toLowerCase().includes(q) ||
+              e.content.toLowerCase().includes(q),
+          )
+          .sort((a, b) => rankEntry(a, q) - rankEntry(b, q));
+        return [category, filtered] as const;
+      })
+      .filter(([, items]) => items.length > 0);
+  }, [categories, q]);
 
   return (
     <div className="grid gap-6">
-      <input
+      <Input
         type="text"
-        placeholder="Search terms..."
+        placeholder="جست و جو ..."
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="w-full border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-ring"
+        onChange={(e) => setQuery(e.target.value || null)}
       />
 
-      <div className="border border-border">
-        {displayEntries.map((entry) => (
-          <Link
-            key={entry.slug}
-            href={`/ai-dictionary/${entry.slug}`}
-            className="block border-b border-border p-4 last:border-b-0 hover:bg-muted"
-          >
-            <span className="font-medium">{entry.title}</span>
-            {entry.description && (
-              <p className="text-secondary-foreground">{entry.description}</p>
-            )}
-          </Link>
-        ))}
+      {filteredCategories.map(([category, items]) => (
+        <div key={category} className="grid gap-3">
+          <h2 className="text-lg font-semibold text-left">
+            {category}
+            <span className="text-yellow-700 text-xl"> #</span>
+          </h2>
+          <div className="grid gap-2 md:grid-cols-2">
+            {items.map((entry) => (
+              <Link
+                className="p-5 bg-muted border border-muted hover:border-yellow-700"
+                key={entry.slug}
+                href={`/ai-dictionary/${entry.slug}?q=${encodeURIComponent(query)}`}
+              >
+                <span className="font-medium w-full">
+                  {highlight(entry.englishTitle, q)}
+                </span>
+                {entry.description && (
+                  <p className="text-secondary-foreground text-sm">
+                    {highlight(entry.description, q)}
+                  </p>
+                )}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
 
-        {displayEntries.length === 0 && (
-          <p className="text-sm text-secondary-foreground py-4 text-center">
-            No terms found.
-          </p>
-        )}
-      </div>
+      {filteredCategories.length === 0 && (
+        <p className="text-sm text-secondary-foreground py-4 text-center">
+          No terms found.
+        </p>
+      )}
     </div>
   );
 }

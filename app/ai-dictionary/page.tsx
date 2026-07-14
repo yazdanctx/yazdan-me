@@ -10,26 +10,13 @@ export const metadata: Metadata = {
 export default function DictionaryPage() {
   const entries = getAllEntries().map((e) => ({
     slug: e.slug,
-    title: e.slug
-      .split("-")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" "),
+    englishTitle: e.englishTitle,
+    farsiTitle: e.farsiTitle,
     description: e.description,
+    category: e.category,
+    order: e.order,
     content: e.content,
   }));
 
-  return (
-    <div className="grid gap-6">
-      <header>
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
-          دیکشنری هوش مصنوعی
-        </h1>
-        <p className="text-sm text-secondary-foreground mt-1">
-          در مورد کانسپت های هوش مصوعی سرچ بزن
-        </p>
-      </header>
-
-      <DictionarySearch entries={entries} />
-    </div>
-  );
+  return <DictionarySearch entries={entries} />;
 }
