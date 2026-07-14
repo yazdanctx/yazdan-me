@@ -29,7 +29,7 @@ export interface DictionaryEntryIndex {
 
 export function filenameToSlug(filename: string): string {
   return filename
-    .replace(/\.mdx$/, "")
+    .replace(/\.mdx?$/, "")
     .toLowerCase()
     .replace(/ /g, "-");
 }
@@ -47,7 +47,7 @@ export function slugToFilename(slug: string): string | null {
 export function getAllEntries(): DictionaryEntry[] {
   if (!fs.existsSync(dictionaryDir)) return [];
 
-  const files = fs.readdirSync(dictionaryDir).filter((f) => f.endsWith(".mdx"));
+  const files = fs.readdirSync(dictionaryDir).filter((f) => f.endsWith(".md") || f.endsWith(".mdx"));
   const entries: DictionaryEntry[] = [];
 
   for (const file of files) {
@@ -97,6 +97,6 @@ export function getEntrySlugs(): string[] {
 
   return fs
     .readdirSync(dictionaryDir)
-    .filter((f) => f.endsWith(".mdx"))
+    .filter((f) => f.endsWith(".md") || f.endsWith(".mdx"))
     .map((f) => filenameToSlug(f));
 }
