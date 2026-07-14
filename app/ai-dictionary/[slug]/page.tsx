@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
@@ -64,9 +63,7 @@ export default async function DictionaryEntryPage({
 
   return (
     <article className="grid gap-6">
-      <Suspense>
-        <DictionaryBackButton />
-      </Suspense>
+      <DictionaryBackButton />
 
       <header className="grid gap-2">
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
