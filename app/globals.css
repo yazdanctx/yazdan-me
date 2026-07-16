@@ -42,6 +42,7 @@ code,
 table {
     max-width: 100%;
     overflow-x: auto;
+    border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
 }
 
 .link {
