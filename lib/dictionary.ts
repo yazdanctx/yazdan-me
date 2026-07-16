@@ -4,7 +4,7 @@ import matter from "gray-matter";
 
 const dictionaryDir = path.join(
   process.cwd(),
-  "app/ai-dictionary/dictionary",
+  "app/t/wiki-ai/dictionary",
 );
 
 export interface DictionaryEntry {

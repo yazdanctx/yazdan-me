@@ -5,7 +5,7 @@ import banner from "../_assets/frieren-2.avif";
 export function DictionaryCard() {
   return (
     <Link
-      href="/ai-dictionary"
+      href="/t/wiki-ai"
       className="flex border group border-border justify-between flex-col-reverse sm:flex-row items-center overflow-hidden hover:border-yellow-700"
     >
       <div className="p-5 flex flex-col items-start md:p-7 w-full">

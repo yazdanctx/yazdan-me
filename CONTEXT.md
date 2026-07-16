@@ -65,11 +65,11 @@ _Avoid_: Collection, group, playlist
 # AI Dictionary
 
 **Entry**:
-A single dictionary term. Stored as a `.md` file in `app/ai-dictionary/dictionary/`. The filename (e.g. `Token.md`) is the canonical title. Frontmatter contains only `description`. Body is markdown with wiki-links to other entries.
+A single dictionary term. Stored as a `.md` file in `app/t/wiki-ai/dictionary/`. The filename (e.g. `Token.md`) is the canonical title. Frontmatter contains only `description`. Body is markdown with wiki-links to other entries.
 _Avoid_: Term, dictionary term, definition
 
 **Wiki-link**:
-An inline markdown link between dictionary entries, using Obsidian-style relative paths (e.g. `[model](./Model.md)`). Rendered as clickable links that navigate to the target entry's page at `/ai-dictionary/[slug]`.
+An inline markdown link between dictionary entries, using Obsidian-style relative paths (e.g. `[model](./Model.md)`). Rendered as clickable links that navigate to the target entry's page at `/t/wiki-ai/[slug]`.
 _Avoid_: Internal link, cross-reference, backlink
 
 **Dictionary Search**:
@@ -77,5 +77,5 @@ Fuzzy matching against both entry titles (filenames) and entry body content. Run
 _Avoid_: Full-text search, query, lookup
 
 **Entry Page**:
-The individual view of a dictionary entry at `/ai-dictionary/[slug]`. Renders the entry's markdown body with wiki-links resolved to navigation. Simplified compared to Article rendering — no TOC, no banner, no series/article navigation.
+The individual view of a dictionary entry at `/t/wiki-ai/[slug]`. Renders the entry's markdown body with wiki-links resolved to navigation. Simplified compared to Article rendering — no TOC, no banner, no series/article navigation.
 _Avoid_: Term page, definition page

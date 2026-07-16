@@ -30,7 +30,7 @@ function rewriteWikiLinks(content: string): string {
     (_, filename: string) => {
       const decoded = decodeURIComponent(filename);
       const linkSlug = decoded.toLowerCase().replace(/ /g, "-");
-      return `](/ai-dictionary/${linkSlug})`;
+      return `](/t/wiki-ai/${linkSlug})`;
     },
   );
 }

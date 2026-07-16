@@ -26,7 +26,7 @@ export function DictionaryActions({
   return (
     <div className="flex items-center gap-2">
       <Button asChild size="icon" variant="outline">
-        <Link href="/ai-dictionary">
+        <Link href="/t/wiki-ai">
           <ArrowBigRight size={16} />
         </Link>
       </Button>
@@ -36,7 +36,7 @@ export function DictionaryActions({
         className="gap-2"
         onClick={() =>
           window.open(
-            `https://github.com/yazdanctx/yazdan-me/blob/main/app/ai-dictionary/dictionary/${slug}.md`,
+            `https://github.com/yazdanctx/yazdan-me/blob/main/app/t/wiki-ai/dictionary/${slug}.md`,
             "_blank",
           )
         }

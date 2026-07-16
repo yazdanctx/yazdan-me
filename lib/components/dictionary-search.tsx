@@ -90,7 +90,7 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
               <Link
                 className="p-5 bg-muted border border-muted hover:border-yellow-700"
                 key={entry.slug}
-                href={`/ai-dictionary/${entry.slug}`}
+                href={`/t/wiki-ai/${entry.slug}`}
               >
                 <span className="font-medium w-full">
                   {highlight(entry.englishTitle, q)}
@@ -120,7 +120,7 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
                 <Link
                   className="p-5 bg-muted border border-muted hover:border-yellow-700"
                   key={entry.slug}
-                  href={`/ai-dictionary/${entry.slug}`}
+                  href={`/t/wiki-ai/${entry.slug}`}
                 >
                   <span className="font-medium w-full">
                     {highlight(entry.englishTitle, q)}

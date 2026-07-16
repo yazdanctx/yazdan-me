@@ -9,7 +9,7 @@ import { ArticleSection } from "@/lib/components/article-section";
 import Image from "next/image";
 import profileImage from "./_assets/profile.jpg";
 import { socialLinks } from "@/lib/social-links";
-import { DictionaryCard } from "./ai-dictionary/_components/dictionary-card";
+import { DictionaryCard } from "./t/wiki-ai/_components/dictionary-card";
 
 export const metadata: Metadata = {
   openGraph: {

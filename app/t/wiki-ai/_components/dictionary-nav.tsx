@@ -18,7 +18,7 @@ export function DictionaryNav({ prev, next }: DictionaryNavProps) {
     <div className="grid sm:grid-cols-2 gap-4 mt-8">
       {prev ? (
         <Link
-          href={`/ai-dictionary/${prev.slug}`}
+          href={`/t/wiki-ai/${prev.slug}`}
           className="flex items-center gap-3 p-5 bg-muted border border-muted hover:border-yellow-700"
         >
           <HiChevronRight className="shrink-0" />
@@ -32,7 +32,7 @@ export function DictionaryNav({ prev, next }: DictionaryNavProps) {
       )}
       {next ? (
         <Link
-          href={`/ai-dictionary/${next.slug}`}
+          href={`/t/wiki-ai/${next.slug}`}
           className="flex items-center gap-3 p-5 bg-muted border border-muted hover:border-yellow-700 justify-end text-right"
         >
           <div className="grid gap-1">
