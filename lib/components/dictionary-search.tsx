@@ -61,23 +61,18 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
 
   const q = query.trim().toLowerCase();
 
-  const filteredCategories = useMemo(() => {
-    if (!q) return categories;
-    return categories
-      .map(([category, items]) => {
-        const filtered = items
-          .filter(
-            (e) =>
-              e.englishTitle.toLowerCase().includes(q) ||
-              e.farsiTitle.toLowerCase().includes(q) ||
-              e.description.toLowerCase().includes(q) ||
-              e.content.toLowerCase().includes(q),
-          )
-          .sort((a, b) => rankEntry(a, q) - rankEntry(b, q));
-        return [category, filtered] as const;
-      })
-      .filter(([, items]) => items.length > 0);
-  }, [categories, q]);
+  const filteredEntries = useMemo(() => {
+    if (!q) return null;
+    return entries
+      .filter(
+        (e) =>
+          e.englishTitle.toLowerCase().includes(q) ||
+          e.farsiTitle.toLowerCase().includes(q) ||
+          e.description.toLowerCase().includes(q) ||
+          e.content.toLowerCase().includes(q),
+      )
+      .sort((a, b) => rankEntry(a, q) - rankEntry(b, q));
+  }, [entries, q]);
 
   return (
     <div className="grid gap-6">
@@ -88,14 +83,10 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
         onChange={(e) => setQuery(e.target.value)}
       />
 
-      {filteredCategories.map(([category, items]) => (
-        <div key={category} className="grid gap-5">
-          <h2 className="text-lg font-semibold text-left">
-            {category}
-            <span className="text-yellow-700 text-xl"> #</span>
-          </h2>
+      {filteredEntries ? (
+        filteredEntries.length > 0 ? (
           <div className="grid gap-1 md:grid-cols-2">
-            {items.map((entry) => (
+            {filteredEntries.map((entry) => (
               <Link
                 className="p-5 bg-muted border border-muted hover:border-yellow-700"
                 key={entry.slug}
@@ -112,13 +103,38 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
               </Link>
             ))}
           </div>
-        </div>
-      ))}
-
-      {filteredCategories.length === 0 && (
-        <p className="text-sm text-secondary-foreground py-4 text-center">
-          No terms found.
-        </p>
+        ) : (
+          <p className="text-sm text-secondary-foreground py-4 text-center">
+            No terms found.
+          </p>
+        )
+      ) : (
+        categories.map(([category, items]) => (
+          <div key={category} className="grid gap-5">
+            <h2 className="text-lg font-semibold text-left">
+              {category}
+              <span className="text-yellow-700 text-xl"> #</span>
+            </h2>
+            <div className="grid gap-1 md:grid-cols-2">
+              {items.map((entry) => (
+                <Link
+                  className="p-5 bg-muted border border-muted hover:border-yellow-700"
+                  key={entry.slug}
+                  href={`/ai-dictionary/${entry.slug}`}
+                >
+                  <span className="font-medium w-full">
+                    {highlight(entry.englishTitle, q)}
+                  </span>
+                  {entry.description && (
+                    <p className="text-secondary-foreground text-sm">
+                      {highlight(entry.description, q)}
+                    </p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))
       )}
     </div>
   );
