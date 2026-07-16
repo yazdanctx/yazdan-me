@@ -1,7 +1,7 @@
 ---
 farsi-title:
 english-title: Session
-description: Session تاریخچه‌ی کامل تعاملت با Agent در طول یک مکالمه است و هرچه طولانی‌تر و شلوغ‌تر شود، مدیریت Context سخت‌تر و کیفیت پاسخ‌ها ممکن است کمتر شود.
+description: Session تاریخچه‌ی کامل تعاملت با Agent در طول یک مکالمه است و هرچه طولانی‌تر و شلوغ‌تر بشه، مدیریت Context سخت‌تر و کیفیت پاسخ‌ها ممکن است کمتر شود.
 category: context-windows
 order: 23
 ---
