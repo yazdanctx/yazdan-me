@@ -37,13 +37,17 @@ body {
 }
 
 video,
-pre,
-code,
+pre {
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+}
+
 table {
     max-width: 100%;
     overflow-x: auto;
-    border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
 }
+
 
 .link {
     @apply text-blue-400 no-underline;
@@ -126,4 +130,10 @@ header .link:visited {
 
 .prose pre code {
     color: white;
+}
+
+hr,
+tr,
+thead {
+    border-color: var(--color-border) !important;
 }
