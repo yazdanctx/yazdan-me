@@ -1,29 +1,6 @@
 import Link from "next/link";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { HiChevronRight, HiChevronLeft } from "react-icons/hi2";
 import type { Article } from "@/lib/mdx";
-import { Button } from "@/lib/components/ui/button";
-
-function NavButton({
-  article,
-  direction,
-}: {
-  article: Article;
-  direction: "prev" | "next";
-}) {
-  const isPrev = direction === "prev";
-
-  return (
-    <Button variant="outline" asChild>
-      <Link href={`/b/${article.slug}`} className="link gap-2">
-        {isPrev && <ChevronRight className="size-4 shrink-0" />}
-        <span className="truncate max-w-28 sm:max-w-40">
-          {article.frontmatter.title}
-        </span>
-        {!isPrev && <ChevronLeft className="size-4 shrink-0" />}
-      </Link>
-    </Button>
-  );
-}
 
 export function ArticleNavigation({
   prev,
@@ -35,9 +12,35 @@ export function ArticleNavigation({
   if (!prev && !next) return null;
 
   return (
-    <div className="flex items-center justify-between">
-      <div>{prev ? <NavButton article={prev} direction="prev" /> : null}</div>
-      <div>{next ? <NavButton article={next} direction="next" /> : null}</div>
+    <div className="grid sm:grid-cols-2 gap-4 mt-8">
+      {prev ? (
+        <Link
+          href={`/b/${prev.slug}`}
+          className="flex items-center gap-3 p-5 bg-muted border border-muted hover:border-yellow-700"
+        >
+          <HiChevronRight className="shrink-0" />
+          <div className="grid gap-1">
+            <span className="text-xs text-secondary-foreground">قبلی</span>
+            <span className="font-medium">{prev.frontmatter.title}</span>
+          </div>
+        </Link>
+      ) : (
+        <div />
+      )}
+      {next ? (
+        <Link
+          href={`/b/${next.slug}`}
+          className="flex items-center gap-3 p-5 bg-muted border border-muted hover:border-yellow-700 justify-end text-right"
+        >
+          <div className="grid gap-1">
+            <span className="text-xs text-secondary-foreground">بعدی</span>
+            <span className="font-medium">{next.frontmatter.title}</span>
+          </div>
+          <HiChevronLeft className="shrink-0" />
+        </Link>
+      ) : (
+        <div />
+      )}
     </div>
   );
 }

@@ -15,7 +15,7 @@ export function DictionaryNav({ prev, next }: DictionaryNavProps) {
   if (!prev && !next) return null;
 
   return (
-    <div className="grid grid-cols-2 gap-4 mt-8">
+    <div className="grid sm:grid-cols-2 gap-4 mt-8">
       {prev ? (
         <Link
           href={`/ai-dictionary/${prev.slug}`}

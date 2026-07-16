@@ -53,7 +53,10 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
       list.push(entry);
       map.set(entry.category, list);
     }
-    return Array.from(map.entries()).sort(([a], [b]) => a.localeCompare(b));
+    return Array.from(map.entries()).sort(([, a], [, b]) => {
+      const minOrder = (arr: Entry[]) => Math.min(...arr.map((e) => e.order));
+      return minOrder(a) - minOrder(b);
+    });
   }, [entries]);
 
   const q = query.trim().toLowerCase();
