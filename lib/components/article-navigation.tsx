@@ -13,28 +13,28 @@ export function ArticleNavigation({
 
   return (
     <div className="grid sm:grid-cols-2 gap-4 mt-8">
-      {prev ? (
+      {next ? (
         <Link
-          href={`/b/${prev.slug}`}
+          href={`/b/${next.slug}`}
           className="flex items-center gap-3 p-5 bg-muted border border-muted hover:border-yellow-700"
         >
           <HiChevronRight className="shrink-0" />
           <div className="grid gap-1">
-            <span className="text-xs text-secondary-foreground">قبلی</span>
-            <span className="font-medium">{prev.frontmatter.title}</span>
+            <span className="text-xs text-secondary-foreground">بعدی</span>
+            <span className="font-medium">{next.frontmatter.title}</span>
           </div>
         </Link>
       ) : (
         <div />
       )}
-      {next ? (
+      {prev ? (
         <Link
-          href={`/b/${next.slug}`}
+          href={`/b/${prev.slug}`}
           className="flex items-center gap-3 p-5 bg-muted border border-muted hover:border-yellow-700 justify-end text-right"
         >
           <div className="grid gap-1">
-            <span className="text-xs text-secondary-foreground">بعدی</span>
-            <span className="font-medium">{next.frontmatter.title}</span>
+            <span className="text-xs text-secondary-foreground">قبلی</span>
+            <span className="font-medium">{prev.frontmatter.title}</span>
           </div>
           <HiChevronLeft className="shrink-0" />
         </Link>
