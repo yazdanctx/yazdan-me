@@ -16,28 +16,28 @@ export function DictionaryNav({ prev, next }: DictionaryNavProps) {
 
   return (
     <div className="grid sm:grid-cols-2 gap-4 mt-8">
-      {prev ? (
+      {next ? (
         <Link
-          href={`/t/wiki-ai/${prev.slug}`}
+          href={`/t/wiki-ai/${next.slug}`}
           className="flex items-center gap-3 p-5 bg-muted border border-muted hover:border-yellow-700"
         >
           <HiChevronRight className="shrink-0" />
           <div className="grid gap-1">
-            <span className="text-xs text-secondary-foreground">قبلی</span>
-            <span className="font-medium">{prev.englishTitle}</span>
+            <span className="text-xs text-secondary-foreground">بعدی</span>
+            <span className="font-medium">{next.englishTitle}</span>
           </div>
         </Link>
       ) : (
         <div />
       )}
-      {next ? (
+      {prev ? (
         <Link
-          href={`/t/wiki-ai/${next.slug}`}
+          href={`/t/wiki-ai/${prev.slug}`}
           className="flex items-center gap-3 p-5 bg-muted border border-muted hover:border-yellow-700 justify-end text-right"
         >
           <div className="grid gap-1">
-            <span className="text-xs text-secondary-foreground">بعدی</span>
-            <span className="font-medium">{next.englishTitle}</span>
+            <span className="text-xs text-secondary-foreground">قبلی</span>
+            <span className="font-medium">{prev.englishTitle}</span>
           </div>
           <HiChevronLeft className="shrink-0" />
         </Link>
