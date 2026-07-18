@@ -66,11 +66,7 @@ export function getAllEntries(): DictionaryEntry[] {
     });
   }
 
-  return entries.sort((a, b) => {
-    const catCmp = a.category.localeCompare(b.category);
-    if (catCmp !== 0) return catCmp;
-    return a.order - b.order;
-  });
+  return entries.sort((a, b) => a.order - b.order);
 }
 
 export function getEntryBySlug(slug: string): DictionaryEntry | null {

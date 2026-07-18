@@ -85,7 +85,7 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
 
       {filteredEntries ? (
         filteredEntries.length > 0 ? (
-          <div className="grid gap-1 md:grid-cols-2">
+          <div className="grid gap-1 md:grid-cols-2" dir="ltr">
             {filteredEntries.map((entry) => (
               <Link
                 className="p-5 bg-muted border border-muted hover:border-yellow-700"
@@ -96,7 +96,7 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
                   {highlight(entry.englishTitle, q)}
                 </span>
                 {entry.description && (
-                  <p className="text-secondary-foreground text-sm">
+                  <p className="text-secondary-foreground text-sm" dir="rtl">
                     {highlight(entry.description, q)}
                   </p>
                 )}
@@ -115,7 +115,7 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
               {category}
               <span className="text-yellow-700 text-xl"> #</span>
             </h2>
-            <div className="grid gap-1 md:grid-cols-2">
+            <div className="grid gap-1 md:grid-cols-2" dir="ltr">
               {items.map((entry) => (
                 <Link
                   className="p-5 bg-muted border border-muted hover:border-yellow-700"
@@ -126,9 +126,9 @@ export function DictionarySearch({ entries }: { entries: Entry[] }) {
                     {highlight(entry.englishTitle, q)}
                   </span>
                   {entry.description && (
-                    <p className="text-secondary-foreground text-sm">
-                      {highlight(entry.description, q)}
-                    </p>
+                  <p className="text-secondary-foreground text-sm" dir="rtl">
+                    {highlight(entry.description, q)}
+                  </p>
                   )}
                 </Link>
               ))}

@@ -1,12 +1,10 @@
 ---
 farsi-title:
-english-title:
+english-title: Ticket
 description: Ticket یه بخش کوچیک و مستقل از پروژه‌ست که طوری طراحی میشه تا توی یه Session کامل انجام بشه و در کنار بقیه Ticket ها کل پروژه رو جلو ببره.
 category: handoffs
 order: 48
 ---
-# `Ticket`
-
 `Ticket` یه کار مشخص و کوچیکه که طوری تعریف میشه تا توی یه `Session` کامل انجام بشه.
 
 اگه `Spec` رو نقشه کلی پروژه در نظر بگیری، `Ticket`ها تیکه‌های کوچیک اون نقشه هستن، یعنی هر `Ticket` یه بخش از پروژه رو جلو می‌بره.
