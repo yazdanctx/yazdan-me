@@ -7,7 +7,7 @@ import { getAllEntries } from "@/lib/dictionary";
 import { DictionarySearch } from "@/lib/components/dictionary-search";
 
 export const metadata: Metadata = {
-  title: "AI Dictionary",
+  title: "Wiki AI",
   description: "Searchable dictionary of AI terms.",
 };
 
