@@ -1,0 +1,75 @@
+The Model
+- AI → https://yazdan.me/t/wiki-ai/ai/
+- Model → https://yazdan.me/t/wiki-ai/model/
+- Parameter (weight) → https://yazdan.me/t/wiki-ai/parameter/
+- Training → https://yazdan.me/t/wiki-ai/training/
+- Inference → https://yazdan.me/t/wiki-ai/inference/
+- Effort → https://yazdan.me/t/wiki-ai/effort/
+- Token → https://yazdan.me/t/wiki-ai/token/
+- Next-token prediction → https://yazdan.me/t/wiki-ai/next-token-prediction/
+- Non-determinism → https://yazdan.me/t/wiki-ai/non-determinism/
+- Model provider → https://yazdan.me/t/wiki-ai/model-provider/
+- Harness → https://yazdan.me/t/wiki-ai/harness/
+- Model provider request → https://yazdan.me/t/wiki-ai/model-provider-request/
+- Input tokens → https://yazdan.me/t/wiki-ai/input-tokens/
+- Output tokens → https://yazdan.me/t/wiki-ai/output-tokens/
+- Prefix cache → https://yazdan.me/t/wiki-ai/prefix-cache/
+- Cache tokens → https://yazdan.me/t/wiki-ai/cache-tokens/
+
+Context & Windows
+- Stateless → https://yazdan.me/t/wiki-ai/stateless/
+- Context → https://yazdan.me/t/wiki-ai/context/
+- Context Window → https://yazdan.me/t/wiki-ai/context-window/
+- Stateful → https://yazdan.me/t/wiki-ai/stateful/
+- Agent → https://yazdan.me/t/wiki-ai/agent/
+- System Prompt → https://yazdan.me/t/wiki-ai/system-prompt/
+- Session → https://yazdan.me/t/wiki-ai/session/
+- Turn → https://yazdan.me/t/wiki-ai/turn/
+
+Tools & Environment
+- Environment → https://yazdan.me/t/wiki-ai/environment/
+- Filesystem → https://yazdan.me/t/wiki-ai/filesystem/
+- Tool → https://yazdan.me/t/wiki-ai/tool/
+- Tool Call → https://yazdan.me/t/wiki-ai/tool-call/
+- Tool Result → https://yazdan.me/t/wiki-ai/tool-result/
+- MCP → https://yazdan.me/t/wiki-ai/mcp/
+- Permission request → https://yazdan.me/t/wiki-ai/permission-request/
+- Permission mode → https://yazdan.me/t/wiki-ai/permission-mode/
+- Agent Mode → https://yazdan.me/t/wiki-ai/agent-mode/
+- Sandbox → https://yazdan.me/t/wiki-ai/sandbox/
+
+Failure Modes & Concepts
+- Sycophancy → https://yazdan.me/t/wiki-ai/sycophancy/
+- Hallucination → https://yazdan.me/t/wiki-ai/hallucination/
+- Parametric Knowledge → https://yazdan.me/t/wiki-ai/parametric-knowledge/
+- Knowledge Cutoff → https://yazdan.me/t/wiki-ai/knowledge-cutoff/
+- Contextual Knowledge → https://yazdan.me/t/wiki-ai/contextual-knowledge/
+- Attention Relationship → https://yazdan.me/t/wiki-ai/attention-relationship/
+- Attention Budget → https://yazdan.me/t/wiki-ai/attention-budget/
+- Human-in-the-loop → https://yazdan.me/t/wiki-ai/human-in-the-loop/
+- AFK → https://yazdan.me/t/wiki-ai/afk/
+- Vibe coding → https://yazdan.me/t/wiki-ai/vibe-coding/
+- Design concept → https://yazdan.me/t/wiki-ai/design-concept/
+- Grilling → https://yazdan.me/t/wiki-ai/grilling/
+- Prototyping → https://yazdan.me/t/wiki-ai/prototyping/
+- DX → https://yazdan.me/t/wiki-ai/dx/
+- AX → https://yazdan.me/t/wiki-ai/ax/
+
+Handoffs
+- Clearing → https://yazdan.me/t/wiki-ai/clearing/
+- Handoffs → https://yazdan.me/t/wiki-ai/handoff/
+- Primary source → https://yazdan.me/t/wiki-ai/primary-source/
+- Secondary source → https://yazdan.me/t/wiki-ai/secondary-source/
+- Handoff artifact → https://yazdan.me/t/wiki-ai/handoff-artifact/
+- Spec → https://yazdan.me/t/wiki-ai/spec/
+- Ticket → https://yazdan.me/t/wiki-ai/ticket/
+- Compaction → https://yazdan.me/t/wiki-ai/compaction/
+- Autocompact → https://yazdan.me/t/wiki-ai/autocompact/
+
+Memory & Steering
+- Memory system → https://yazdan.me/t/wiki-ai/memory-system/
+- AGENTS.md → https://yazdan.me/t/wiki-ai/agents-md/
+- Progressive disclosure → https://yazdan.me/t/wiki-ai/progressive-disclosure/
+- Context pointer → https://yazdan.me/t/wiki-ai/context-pointer/
+- Skill → https://yazdan.me/t/wiki-ai/skill/
+- Subagent → https://yazdan.me/t/wiki-ai/subagent/

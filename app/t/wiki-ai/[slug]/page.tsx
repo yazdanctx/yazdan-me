@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
 import { notFound } from "next/navigation";
 import { getAllEntries, getEntryBySlug, getEntrySlugs } from "@/lib/dictionary";
-import { getCompiledDictionaryHtml } from "@/lib/dictionary-mdx";
 import { CodeBlockEnhancer } from "@/lib/components/code-block-enhancer";
 import { DictionaryNav } from "../_components/dictionary-nav";
 import { DictionaryActions } from "../_components/dictionary-actions";
+import { MarkdownLink } from "../_components/markdown-link";
 
 export function generateStaticParams() {
   return getEntrySlugs().map((slug) => ({ slug }));
@@ -32,9 +35,6 @@ export default async function DictionaryEntryPage({
 
   if (!entry) notFound();
 
-  const htmlMap = getCompiledDictionaryHtml();
-  const html = htmlMap[slug];
-
   const allEntries = getAllEntries();
   const currentIndex = allEntries.findIndex((e) => e.slug === slug);
   const prev = currentIndex > 0 ? allEntries[currentIndex - 1] : null;
@@ -56,7 +56,16 @@ export default async function DictionaryEntryPage({
 
       <div className="prose prose-invert max-w-none overflow-hidden prose-headings:text-stone-200 prose-em:text-stone-200 prose-code:text-yellow-700 prose-img:w-full">
         <CodeBlockEnhancer>
-          <div dangerouslySetInnerHTML={{ __html: html }} />
+          <MDXRemote
+            source={entry.content}
+            components={{ a: MarkdownLink }}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+                rehypePlugins: [rehypeSlug],
+              },
+            }}
+          />
         </CodeBlockEnhancer>
       </div>
 
