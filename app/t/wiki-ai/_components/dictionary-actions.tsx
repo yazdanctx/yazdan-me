@@ -1,16 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import {
-  Copy,
-  Check,
-  MoveRightIcon,
-  MoveRight,
-  Redo2,
-  ArrowBigRight,
-} from "lucide-react";
-import { HiArrowRight } from "react-icons/hi2";
+import { Copy, Check, ArrowBigRight } from "lucide-react";
 import { FiGithub } from "react-icons/fi";
 import { Button } from "@/lib/components/ui/button";
 
@@ -22,13 +14,18 @@ export function DictionaryActions({
   content: string;
 }) {
   const [copied, setCopied] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="flex items-center gap-2">
-      <Button asChild size="icon" variant="outline">
-        <Link href="/t/wiki-ai">
-          <ArrowBigRight size={16} />
-        </Link>
+      <Button
+        size="icon"
+        variant="outline"
+        onClick={() =>
+          document.referrer ? router.back() : router.push("/t/wiki-ai")
+        }
+      >
+        <ArrowBigRight size={16} />
       </Button>
 
       <Button

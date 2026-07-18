@@ -24,17 +24,6 @@ export async function generateMetadata({
   return { title: entry.englishTitle, description: entry.description };
 }
 
-function rewriteWikiLinks(content: string): string {
-  return content.replace(
-    /\]\(\.\/((?:[^)"]+|%.+)*)\.md(x)?\)/g,
-    (_, filename: string) => {
-      const decoded = decodeURIComponent(filename);
-      const linkSlug = decoded.toLowerCase().replace(/ /g, "-");
-      return `](/t/wiki-ai/${linkSlug})`;
-    },
-  );
-}
-
 export default async function DictionaryEntryPage({
   params,
 }: {
@@ -50,8 +39,6 @@ export default async function DictionaryEntryPage({
   const prev = currentIndex > 0 ? allEntries[currentIndex - 1] : null;
   const next =
     currentIndex < allEntries.length - 1 ? allEntries[currentIndex + 1] : null;
-
-  const processedContent = rewriteWikiLinks(entry.content);
 
   return (
     <article className="grid gap-6">
@@ -69,7 +56,7 @@ export default async function DictionaryEntryPage({
       <div className="prose prose-invert max-w-none overflow-hidden prose-headings:text-stone-200 prose-em:text-stone-200 prose-code:text-yellow-700 prose-img:w-full">
         <CodeBlockEnhancer>
           <MDXRemote
-            source={processedContent}
+            source={entry.content}
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGfm],
