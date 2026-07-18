@@ -22,7 +22,7 @@ export function DictionaryActions({
         size="icon"
         variant="outline"
         onClick={() =>
-          document.referrer ? router.back() : router.push("/t/wiki-ai")
+          window.history.length > 1 ? router.back() : router.push("/t/wiki-ai")
         }
       >
         <ArrowBigRight size={16} />
