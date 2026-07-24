@@ -69,7 +69,7 @@ export default function Page() {
       ))}
 
       {standalone.length > 0 && (
-        <ArticleSection title="مقالات" articles={standalone} />
+        <ArticleSection title="دست نوشته ها" articles={standalone} />
       )}
 
       {drafts.length > 0 && (

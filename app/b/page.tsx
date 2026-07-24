@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { getSeries, getStandaloneArticles, getDraftArticles, isDev } from "@/lib/mdx";
+import {
+  getSeries,
+  getStandaloneArticles,
+  getDraftArticles,
+  isDev,
+} from "@/lib/mdx";
 import { ArticleSection } from "@/lib/components/article-section";
 import Image from "next/image";
 import profileImage from "../_assets/profile.jpg";
@@ -58,7 +63,7 @@ export default function BlogIndex() {
       ))}
 
       {standalone.length > 0 && (
-        <ArticleSection title="مقالات" articles={standalone} />
+        <ArticleSection title="دست نوشته ها" articles={standalone} />
       )}
 
       {drafts.length > 0 && (
