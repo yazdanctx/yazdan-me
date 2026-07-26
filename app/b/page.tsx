@@ -63,7 +63,7 @@ export default function BlogIndex() {
       ))}
 
       {standalone.length > 0 && (
-        <ArticleSection title="دست نوشته ها" articles={standalone} />
+        <ArticleSection title="چیز هایی از تلگرامم" articles={standalone} />
       )}
 
       {drafts.length > 0 && (
