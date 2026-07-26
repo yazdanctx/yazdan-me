@@ -125,7 +125,7 @@ export default async function ArticlePage({
         </CodeBlockEnhancer>
       </div>
 
-      {nav ? <ArticleNavigation prev={nav.prev} next={nav.next} /> : null}
+      {seriesNav ? <ArticleNavigation prev={seriesNav.prev} next={seriesNav.next} /> : null}
     </article>
   );
 }
