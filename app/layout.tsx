@@ -7,7 +7,7 @@ import "./globals.css";
 import { Button } from "@/lib/components/ui/button";
 import { FiGithub } from "react-icons/fi";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-
+// changed
 const peyda = localFont({
   src: "./fonts/PeydaFaNumWeb-Regular.woff2",
   display: "swap",
