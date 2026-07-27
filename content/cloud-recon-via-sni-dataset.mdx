@@ -1,0 +1,320 @@
+---
+title: پیدا کردن Cloud Asset با استفاده از دیتاست SNI
+date: 2026-07-27
+description: چند روز پیش یه تکنیک ریکان یاد گرفتم تا از طریق SNI به Cloud Assets های جدید برسم. البته با چند تا هانتر باتجربه تر حرف زدم و همشون اینو بلد بودن ولی خب خودم تازه یاد گرفتم و بنظرم تکنیک باحالیه.
+series: recon-techniques
+part: 1
+seriesLabel: تکنیک های ریکان
+banner: /assets/banners/cloud-recon-via-sni-dataset.avif
+---
+
+چند روز پیش یه تکنیک ریکان یاد گرفتم تا از طریق `SNI` به `Cloud Assets` های جدید برسم. البته با چند تا هانتر باتجربه تر حرف زدم و همشون اینو بلد بودن ولی خب خودم تازه یاد گرفتم و بنظرم تکنیک باحالیه.
+
+خلاصه اینکه یه دیتاستی روی اینترنت هست که هر هفته رنج `IP`های `Cloud Provider` های بزرگ مثل `AWS`، `Google Cloud`، `Azure`، `Oracle` و `DigitalOcean` رو اسکن می‌کنه و اطلاعات `TLS` اونارو رو جمع‌ می‌کنه و بعد این دیتاست رو به صورت فایلای تکست منتشر می‌کنه تا هر کسی بتونه دانلود و جستجو کنه.
+
+حالا اینجا بهت توضیح میدم که چطور میشه از طریق این دیتاست به `Asset` رسید ولی اول بذار یه زمینه چینی بکنم که قشنگ یاد بگیری چی به چیه.
+
+## بررسی TLS Handshake و اکستنشن SNI
+
+قبل ازینکه یه ارتباط `HTTPS` برقرار بشه، کلاینت اول یه اتصال `TCP` با سرور ایجاد میکنه و بعد که `TCP Connection` اوکی شد، پروتکل `TLS` وارد عمل میشه. 
+
+خب این `TLS` هم هدفش اینه که یه کانال امنی بین سرور و کلاینت ایجاد کنه و مطمئن بشه که حالا اون سرور جعلی نیست و پارامتر های انکریپشن بین کلاینتو سرور چیه و این داستانا.
+
+حالا این `TLS` طبیعتا یه `Handshake` داره و اولین پیامش هم `ClientHello` هست که شامل یه سری دیتا های مختلفه مثل `Supported TLS Versions`، لیست `Cipher Suite` ها، اکستنشن های `TLS` و یه سری پارامتر های دیگه. 
+
+یکی از مهم‌ترین این اکستنشن ها که ما اینجا باهاش کار داریم، اکستنشن `Server Name Indication` یا همون `SNI`ـه که `Hostname` موردنظر کلاینت رو مشخص می‌کنه.
+
+مثلا اگه که کاربر قصد داشته باشه به `api.dell.com` وصل بشه، مقدار اکستنشن مربوط به `SNI` داخل `ClientHello` این شکلی میشه:
+
+```text
+SNI = api.dell.com
+```
+
+اصلا دلیل وجود این `SNI` اینه که امروزه معمولا چندین وبسایت روی یدونه `Public IP` مشترک هاست میشن ( بهش میگن `Name-based Virtual Hosting‍‍` ) و خب اگه کلاینت بیاد فقط به `IP` متصل بشه، ازونور سرور چجوری بفهمه که `Certificate` کدوم وبسایت رو باید برگردونه؟ 
+
+سر همین داستان، قبل ارسال `Certificate`، کلاینت میاد `Hostname` موردنظرش رو با `SNI` اعلام می‌کنه و حالا سرور بر اساس اون `Certificate` مناسبو برمیداره و در پیامهای بعدی `Handshake` ارسال می‌کنه.
+
+به صورت خلاصه، ترتیب اتفاقات به این شکله:
+
+```text
+TCP Connection
+        │
+        ▼
+TLS ClientHello
+        │
+        ├── TLS Version
+        ├── Cipher Suites
+        ├── Extensions
+        │      └── SNI = api.example.com
+        ▼
+ServerHello
+        │
+        ├── Select Certificate(api.example.com)
+        ├── Send Certificate
+        ▼
+TLS Handshake Continues
+```
+
+نکته‌ای که این موضوع رو برای `Recon` ارزشمند می‌کنه اینه که مقدار `SNI` در پیام `ClientHello` ارسال میشه و سرور نیز بر اساس همون مقدار `Certificate` متناظر رو ارائه می‌کنه. بنابراین اگر یک اسکنر میلیون‌ها `IP` عمومی رو بررسی کنه و برای هر کدوم یک `TLS Handshake` انجام بده، می‌تونه `Hostnameها` و `Certificate`های مشاهده‌شده روی اون `IP`ها رو جمع‌آوری کنه. دقیقاً همین دیتاستیه که پروژه `Kaeferjaeger` به‌صورت هفتگی تولید و منتشر می‌کنه و بعدا میشه روی اون برای `Asset Discovery` جستجو انجام داد.
+
+>اینجا گفتم که سرور بر اساس مقدار `SNI`، سرتیفیکیت مناسبو برمیگردونه ولی اگه بخوام دقیق تر بگم، اما این رفتار همیشگی نیست و بعضی سرورها همیشه `Default Certificate` را برمیگردونن.
+
+حالا اینجا داستان جذاب میشه، چرا؟ خب من گفتم که `SNI` داخل `ClientHello` ارسال میشه و سرور هم بر اساس همون `SNI`ـه که میتونه یه `Certificate` متناظر رو ارائه بده. 
+
+حالا چرا ما نیایم یه اسکنر بندازیم به جون اینترنت و میلیون ها `IP` عمومی رو اسکن کنیم و با هر `IP` یه `TLS Handshake` انجام بدیم و مقادیر `Hostname` و `Certificate` هایی که میبینیم روی جمع آوری کنیم و یه دیتاست جمع کنیم؟
+
+تنها دلیلی که لازم نیست شما این کارو بکنی اینه که یه نفر دیگه قبل انجامش داده و این دیتاست، حاضر آماده الان در دسترسه!
+
+## بررسی دیتاست Kaeferyeager
+
+این `Kaeferyeager` یه گروه هکرن. بعد اینا میان هر هفته، میلیون ها `IP` متعلق به `Cloud Provider` هارو اسکن میکنن و با هر `IP` یه `TLS Handshake` میزنن و اطلاعات `SNI` و `Certificate` رو در میارن و در نهایت همه رو میذارن روی وبسایتشون و شما میتونی بری دانلود کنی.
+
+https://kaeferjaeger.gay/?dir=sni-ip-ranges
+
+![[Screenshot 2026-07-27 at 2.54.04 PM.png]]
+
+اینجا شما میبینی که برای هر `Provider` ، یدونه `Directory` گذاشته و اینارو هر هفته آپدیت میشن، حجمشونم زیاده تقریبا هر کدوم یه گیگ اینطوراس.
+
+داخل هر دایرکتری یدونه فایل `ipv4_merged_sni.txt` وجود داره که در واقع خروجی اسکن `TLS` روی `IP`های اون `Cloud Provider` هست، مثلا اینو از داخل همین `ipv4_merged_sni.txt` برداشتم:
+
+```text
+1.178.93.5:443 -- [s3vectors.eu-north-1.api.aws *.s3vectors.eu-north-1.vpce.amazonaws.com]
+1.178.93.0:443 -- [s3vectors.eu-north-1.api.aws *.s3vectors.eu-north-1.vpce.amazonaws.com]
+1.178.9.5:443 -- [s3vectors.us-west-2.api.aws *.s3vectors.us-west-2.vpce.amazonaws.com]
+```
+
+هر خط این فایل یک `Endpoint` (منظورم همون `IP` و پورته) رو نشون میده و کنارش لیستی از`Hostname`هایی قرار داره که `Kaeferjaeger` موقع `TLS Handshake` روی اون اندپوینت تونسته ببینه. ساختار هر خط تقریبا این شکلیه:
+
+```
+<IP>:<Port> -- [Hostname1 Hostname2 Hostname3 ...]
+```
+
+یعنی این `Kaeferjaeger` به اون آی پی روی پورت `443` وصل شده، `TLS Handshake` انجام داده و تشخیص داده که این اندپوینت ها برای این `Hostname`ها `Certificate` ارائه میدن. مثلا `IP` های `1.178.93.5` و `1.178.93.0` هر دو به اندپوینت های مربوط به `eu-north-1` سرویس میدن، 
+
+در حالی که مثلا `1.178.9.5` مربوط به `us-west-2` هست. حالا بعدا که شما دنبال یه دامنه مثل `dell.com` بگردی، در واقع داری داخل همین دیتاست می‌گردی تا ببینی چه `Hostname` هایی روی `IP` های عمومی مشاهده شدن و بعد از روی اون‌ها `Asset` های بیشتری پیدا کنی.
+
+## ریکان
+
+خب تا اینجا ما فهمیدیم که چطور از طریق این دیتاستی که `kaeferyeager` بهمون میده، بریم `Cloud Assets` پیدا کنیم. 
+
+حالا اینجا من یه اتومیشن برای خودم پیاده سازی کردم که بهت میگم چطور کار میکنه ولی شما خودت هر جور که عشقت میکشه میتونی بری از این دیتاست کار بگیری و من صرفا یه ذهنیتی میخوام بهت بدم.
+
+خب من فرض میگیرم که شما یه `vps` داری برای هانت. 
+
+اول میری رو یه کلون از این [ریپازیتوری](https://github.com/yazdanctx/kaeferyeager-sni-ip-sync/blob/main/sync.go) میگیری. داخل این ریپازیتوری یه اسکریپت گولنگ هست که میره `ipv4_merged_sni` هارو دانلود میکنه و همشونو میریزه داخل یدونه فایل تکست:
+
+```go
+package main
+
+import (
+	"fmt"
+	"io"
+	"net/http"
+	"os"
+	"path/filepath"
+	"time"
+)
+
+const (
+	baseURL    = "https://kaeferjaeger.gay/sni-ip-ranges"
+	dataDir    = "data"
+	outputFile = "final.txt"
+)
+
+var providers = []string{
+	"amazon",
+	"digitalocean",
+	"google",
+	"microsoft",
+	"oracle",
+}
+
+func main() {
+	fmt.Println("Starting SNI IP range sync...")
+	start := time.Now()
+
+	for _, provider := range providers {
+		if err := download(provider); err != nil {
+			fmt.Fprintf(os.Stderr, "FATAL: %s download failed: %v\n", provider, err)
+			os.Exit(1)
+		}
+	}
+
+	if err := merge(); err != nil {
+		fmt.Fprintf(os.Stderr, "FATAL: merge failed: %v\n", err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("Done in %s\n", time.Since(start).Round(time.Second))
+}
+
+func download(provider string) error {
+	url := fmt.Sprintf("%s/%s/ipv4_merged_sni.txt", baseURL, provider)
+	dir := filepath.Join(dataDir, provider)
+	path := filepath.Join(dir, "ipv4_merged_sni.txt")
+	tmpPath := path + ".tmp"
+
+	fmt.Printf("Downloading %s...\n", provider)
+
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		return err
+	}
+
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("HTTP %d", resp.StatusCode)
+	}
+
+	f, err := os.Create(tmpPath)
+	if err != nil {
+		return err
+	}
+
+	if _, err := io.Copy(f, resp.Body); err != nil {
+		f.Close()
+		os.Remove(tmpPath)
+		return err
+	}
+
+	if err := f.Close(); err != nil {
+		os.Remove(tmpPath)
+		return err
+	}
+
+	return os.Rename(tmpPath, path)
+}
+
+func merge() error {
+	fmt.Println("Merging into final.txt...")
+
+	f, err := os.Create(outputFile)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	for _, provider := range providers {
+		path := filepath.Join(dataDir, provider, "ipv4_merged_sni.txt")
+		src, err := os.Open(path)
+		if err != nil {
+			return err
+		}
+
+		if _, err := io.Copy(f, src); err != nil {
+			src.Close()
+			return err
+		}
+		src.Close()
+	}
+
+	return nil
+}
+```
+
+پس شما میای اول این اسکریپت رو ران میکنی که بره فایلهارو دانلود کنه:
+
+```
+go run sync.go
+```
+
+حواستم باشه حدودا ۵ گیگ باید دانلود کنه و شاید یکم زمان ببره.
+
+بعد یدونه اسکریپت `bash` هست که شما بهش دامین تارگتتو میدی، و این میره `Subdomain` هارو از این `final.txt` پیدا میکنه و میریزه داخل دایرکتری `output`. ( وایلدکارد ها هم پیدا میکنه نگران نباش ):
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <domain>" >&2
+  echo "Example: $0 dell.com" >&2
+  exit 1
+fi
+
+DOMAIN="$1"
+INPUT="final.txt"
+OUTPUT_DIR="output/${DOMAIN//\./_}"
+TIMESTAMP=$(date +%s%3N)
+
+if [ ! -f "$INPUT" ]; then
+  echo "Error: $INPUT not found. Run the sync tool first." >&2
+  exit 1
+fi
+
+mkdir -p "$OUTPUT_DIR"
+
+OUTPUT_FILE="$OUTPUT_DIR/results_${TIMESTAMP}.txt"
+
+grep -F ".$DOMAIN" "$INPUT" \
+  | awk -F'-- ' '{print $2}' \
+  | tr ' [' '\n\n' \
+  | sed 's/\]//g' \
+  | grep -F ".$DOMAIN" \
+  | sort -u > "$OUTPUT_FILE"
+
+echo "Extracted to $OUTPUT_FILE"
+```
+
+مثلا اگه اینو ران کنی:
+
+```
+./extract.sh dell.com
+```
+
+حدود ۳۸۰ تا `subdomain` رو میریزه داخل دایرکتری `output` ( اون لاین اولشم خودم اینجا گذاشتم که شما ببینی نتیجه کجا داره ذخیره میشه ):
+
+```
+📁 /root/kaeferyeager-sni-ip-sync/output/dell_com/results_1785153512902783379.txt
+
+*.5g.dell.com
+*.ap.dell.com
+*.apj.dell.com
+*.auto.nativeedge.dell.com
+*.automation.dell.com
+*.cdn.dell.com
+*.corp.connect.dell.com
+*.dell.com
+*.dell.com.agent.lanscope-as.com
+*.euro.dell.com
+*.fp5g.dell.com
+*.jp.dell.com
+*.la.dell.com
+*.nativeedge.dell.com
+*.priv.automation.dell.com
+*.prod-auoutlet.dell.com
+*.prod.automation.dell.com
+*.prod.sp.dell.com
+*.pub.automation.dell.com
+*.pub.sp.dell.com
+*.pub.stage.automation.dell.com
+*.pub.stage.sp.dell.com
+*.pub.staging.automation.dell.com
+*.pub.staging.sp.dell.com
+*.sp.dell.com
+*.stage.automation.dell.com
+*.stage.sp.dell.com
+*.staging-auoutlet.dell.com
+*.staging.automation.dell.com
+*.staging.sp.dell.com
+*.us.dell.com
+DellCMG01.dell.com
+DellCMG02.dell.com
+Myconnect-NG.dell.com
+PexipDevedge.dell.com
+PexipDevedge.us.dell.com
+Pexscprox.dell.com
+...300 more
+```
+
+و شما الان به یک سری `cloud assets` رسیدی که شاید در حالت عادی نمیتونستی پیداشون بکنی!
+
+## جمع بندی
+
+با خوندن این رایت آپ یاد گرفتی که چطور با استفاده از دیتاست `kaeferyeager` ، بری و از `Cloud Provider` ها `asset` های جدید پیدا کنی.
+
+نکته آخرم اینکه من روی سرور خودم یه `Cron job` ست کردم که هفته ای یکبار بره `kaeferyeager` رو چک بکنه و دیتا رو سینک کنه، شما هم میتونی اینکارو بکنی تا همیشه دیتاستت `up to date` باشه.
