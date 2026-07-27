@@ -24,10 +24,10 @@ banner: /assets/banners/cloud-recon-via-sni-dataset.avif
 
 یکی از مهم‌ترین این اکستنشن ها که ما اینجا باهاش کار داریم، اکستنشن `Server Name Indication` یا همون `SNI`ـه که `Hostname` موردنظر کلاینت رو مشخص می‌کنه.
 
-مثلا اگه که کاربر قصد داشته باشه به `api.dell.com` وصل بشه، مقدار اکستنشن مربوط به `SNI` داخل `ClientHello` این شکلی میشه:
+مثلا اگه که کاربر قصد داشته باشه به `dell.com` وصل بشه، مقدار اکستنشن مربوط به `SNI` داخل `ClientHello` این شکلی میشه:
 
 ```text
-SNI = api.dell.com
+SNI = dell.com
 ```
 
 اصلا دلیل وجود این `SNI` اینه که امروزه معمولا چندین وبسایت روی یدونه `Public IP` مشترک هاست میشن ( بهش میگن `Name-based Virtual Hosting‍‍` ) و خب اگه کلاینت بیاد فقط به `IP` متصل بشه، ازونور سرور چجوری بفهمه که `Certificate` کدوم وبسایت رو باید برگردونه؟ 
@@ -45,11 +45,11 @@ TLS ClientHello
         ├── TLS Version
         ├── Cipher Suites
         ├── Extensions
-        │      └── SNI = api.example.com
+        │      └── SNI = dell.com
         ▼
 ServerHello
         │
-        ├── Select Certificate(api.example.com)
+        ├── Select Certificate(dell.com)
         ├── Send Certificate
         ▼
 TLS Handshake Continues
