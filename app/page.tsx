@@ -10,6 +10,7 @@ import Image from "next/image";
 import profileImage from "./_assets/profile.jpg";
 import { socialLinks } from "@/lib/social-links";
 import { DictionaryCard } from "./t/wiki-ai/_components/dictionary-card";
+import { PomodorusCard } from "./_components/pomodorus-card";
 
 export const metadata: Metadata = {
   openGraph: {
@@ -61,7 +62,10 @@ export default function Page() {
 
       <section>
         <h2 className="mb-4 text-lg sm:text-2xl font-semibold">ابزار ها</h2>
-        <DictionaryCard />
+        <div className="grid gap-6 sm:grid-cols-2">
+          <DictionaryCard />
+          <PomodorusCard />
+        </div>
       </section>
 
       {series.map((s) => (

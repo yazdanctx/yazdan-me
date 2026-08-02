@@ -1,29 +1,28 @@
 import Link from "next/link";
 import Image from "next/image";
-import banner from "../_assets/frieren-2.avif";
+const banner = "/assets/etc/pomodorus.avif";
 
-export function DictionaryCard() {
+export function PomodorusCard() {
   return (
     <Link
-      href="/t/wiki-ai"
+      href="https://pomodorus.yazdan.me"
+      target="_blank"
+      rel="noopener noreferrer"
       className="flex border group border-border flex-col-reverse overflow-hidden hover:border-yellow-700"
     >
       <div className="p-5 flex flex-col items-start md:p-7 w-full">
-        <h3 className="font-semibold text-lg mb-2 flex flex-col ">
-          واژه نامه هوش مصنوعی
-        </h3>
+        <h3 className="font-semibold text-lg mb-2 flex flex-col ">پومودوروس</h3>
         <p className="text-secondary-foreground text">
-          اینجا مفاهیم مرتبط با ابزار های ایجنتیک رو به صورت ساده و خلاصه رو
-          طبقه بندی کردم.
+          یه اپ پومودوری خیلی مینیمال که برای استفاده شخصی خودم ساختم.
         </p>
       </div>
       <div className="w-full relative">
-        <div className="absolute left-0 right-0 bottom-0 top-0 z-5 bg-gradient-to-t via-black/30 from-black to-transparent" />
+        <div className="absolute left-0 right-0 bottom-0 top-0 z-5 bg-gradient-to-t  from-black to-transparent" />
         <div className="w-full aspect-square flex items-center justify-center overflow-hidden">
           <Image
             loading="eager"
             src={banner}
-            alt="Frieren"
+            alt="Pomodorus"
             width={832}
             height={830}
             className="w-full h-full object-contain"
