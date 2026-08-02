@@ -13,7 +13,7 @@ export function PomodorusCard() {
       <div className="p-5 flex flex-col items-start md:p-7 w-full">
         <h3 className="font-semibold text-lg mb-2 flex flex-col ">پومودوروس</h3>
         <p className="text-secondary-foreground text">
-          یه اپ پومودوری خیلی مینیمال که برای استفاده شخصی خودم ساختم.
+          یه اپ پومودوروی خیلی مینیمال که برای استفاده شخصی خودم ساختم.
         </p>
       </div>
       <div className="w-full relative">
