@@ -1,6 +1,8 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { Metadata } from "next";
-import { getRecommendations } from "./_lib/recommendations";
-import { RecommendationList } from "./_components/recommendation-list";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 
 export const metadata: Metadata = {
   title: "مطالب پیشنهادی",
@@ -11,27 +13,21 @@ export const metadata: Metadata = {
 };
 
 export default function RecommendationsPage() {
-  const items = getRecommendations();
+  const source = fs.readFileSync(
+    path.join(process.cwd(), "app/r/recommendations.md"),
+    "utf-8",
+  );
 
   return (
-    <div className="grid gap-10">
-      <header className="flex flex-col gap-3 items-start">
-        <h1 className="text-xl sm:text-3xl font-semibold">مطالب پیشنهادی</h1>
-        <p className="text-secondary-foreground text">
-          پادکست ها و مطالبی که گوش میدم و میخونم. اونایی که ستاره دارن رو بیشتر
-          پیشنهاد میکنم.
-        </p>
-      </header>
+    <article className="grid gap-6">
+      <h1 className="text-xl sm:text-3xl font-semibold">مطالب پیشنهادی</h1>
 
-      <RecommendationList
-        title="پیشنهاد ویژه"
-        items={items.filter((item) => item.starred)}
-      />
-
-      <RecommendationList
-        title="بقیه"
-        items={items.filter((item) => !item.starred)}
-      />
-    </div>
+      <div className="prose prose-invert max-w-none prose-headings:text-stone-200">
+        <MDXRemote
+          source={source}
+          options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+        />
+      </div>
+    </article>
   );
 }
