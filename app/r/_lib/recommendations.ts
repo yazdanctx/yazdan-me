@@ -24,14 +24,8 @@ export interface RecommendationGroup {
 export interface RecommendationSection {
   title: string;
   slug: string;
-  intro: string;
   groups: RecommendationGroup[];
   count: number;
-}
-
-export interface RecommendationsDocument {
-  intro: string;
-  sections: RecommendationSection[];
 }
 
 const SECTION = /^##\s+(.+)$/;
@@ -49,16 +43,16 @@ function hostnameOf(url: string): string {
 
 /**
  * Parses `recommendations.md` into sections (`##`), optional groups (`###`)
- * and their links. Prose between a heading and its list becomes the intro.
+ * and their links. Prose lines are ignored — only headings and list items
+ * make it onto the page.
  */
-export function getRecommendations(): RecommendationsDocument {
-  if (!fs.existsSync(recommendationsFile)) return { intro: "", sections: [] };
+export function getRecommendations(): RecommendationSection[] {
+  if (!fs.existsSync(recommendationsFile)) return [];
 
   const slugger = new GithubSlugger();
   const source = fs.readFileSync(recommendationsFile, "utf-8");
 
   const sections: RecommendationSection[] = [];
-  const intro: string[] = [];
   let section: RecommendationSection | null = null;
   let group: RecommendationGroup | null = null;
 
@@ -68,13 +62,8 @@ export function getRecommendations(): RecommendationsDocument {
 
     const sectionMatch = line.match(SECTION);
     if (sectionMatch) {
-      section = {
-        title: sectionMatch[1].trim(),
-        slug: slugger.slug(sectionMatch[1].trim()),
-        intro: "",
-        groups: [],
-        count: 0,
-      };
+      const title = sectionMatch[1].trim();
+      section = { title, slug: slugger.slug(title), groups: [], count: 0 };
       sections.push(section);
       group = null;
       continue;
@@ -102,16 +91,8 @@ export function getRecommendations(): RecommendationsDocument {
         index: bullet ? null : Number(ordinal),
       });
       section.count += 1;
-      continue;
-    }
-
-    // Anything else is prose: the page intro, or the current section's intro.
-    if (section) {
-      section.intro = section.intro ? `${section.intro} ${line}` : line;
-    } else {
-      intro.push(line);
     }
   }
 
-  return { intro: intro.join(" "), sections };
+  return sections;
 }

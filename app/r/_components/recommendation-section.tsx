@@ -15,22 +15,15 @@ function SectionIcon({ section }: { section: Section }) {
 
 export function RecommendationSection({ section }: { section: Section }) {
   return (
-    <section id={section.slug} className="scroll-mt-24">
-      <header className="mb-4 flex flex-col gap-2">
-        <div className="flex items-center gap-3">
-          <span className="flex size-9 shrink-0 items-center justify-center border border-border bg-muted">
-            <SectionIcon section={section} />
-          </span>
-          <h2 className="text-lg font-semibold sm:text-2xl" dir="auto">
-            {section.title}
-          </h2>
-          <span className="border border-border px-2 py-0.5 text-xs text-muted-foreground tabular-nums">
-            {section.count}
-          </span>
-        </div>
-        {section.intro && (
-          <p className="text-secondary-foreground">{section.intro}</p>
-        )}
+    <section id={section.slug} dir="ltr" className="scroll-mt-24">
+      <header className="mb-4 flex items-center gap-3">
+        <span className="flex size-9 shrink-0 items-center justify-center border border-border bg-muted">
+          <SectionIcon section={section} />
+        </span>
+        <h2 className="text-lg font-semibold sm:text-2xl">{section.title}</h2>
+        <span className="border border-border px-2 py-0.5 text-xs text-muted-foreground tabular-nums">
+          {section.count}
+        </span>
       </header>
 
       <div className="grid gap-5">
