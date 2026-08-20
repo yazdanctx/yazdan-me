@@ -25,7 +25,6 @@ export interface RecommendationSection {
   title: string;
   slug: string;
   groups: RecommendationGroup[];
-  count: number;
 }
 
 const SECTION = /^##\s+(.+)$/;
@@ -63,7 +62,7 @@ export function getRecommendations(): RecommendationSection[] {
     const sectionMatch = line.match(SECTION);
     if (sectionMatch) {
       const title = sectionMatch[1].trim();
-      section = { title, slug: slugger.slug(title), groups: [], count: 0 };
+      section = { title, slug: slugger.slug(title), groups: [] };
       sections.push(section);
       group = null;
       continue;
@@ -90,7 +89,6 @@ export function getRecommendations(): RecommendationSection[] {
         hostname: hostnameOf(url.trim()),
         index: bullet ? null : Number(ordinal),
       });
-      section.count += 1;
     }
   }
 

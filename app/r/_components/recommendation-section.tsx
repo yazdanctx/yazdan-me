@@ -21,9 +21,6 @@ export function RecommendationSection({ section }: { section: Section }) {
           <SectionIcon section={section} />
         </span>
         <h2 className="text-lg font-semibold sm:text-2xl">{section.title}</h2>
-        <span className="border border-border px-2 py-0.5 text-xs text-muted-foreground tabular-nums">
-          {section.count}
-        </span>
       </header>
 
       <div className="grid gap-5">

@@ -25,11 +25,6 @@ export function SiteNav() {
         </Link>
 
         <div className="hidden sm:flex items-center gap-4">
-          {pageLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="link">
-              {link.label}
-            </Link>
-          ))}
           {socialLinks.map((link) => (
             <a
               key={link.href}
@@ -40,6 +35,11 @@ export function SiteNav() {
             >
               {link.label}
             </a>
+          ))}
+          {pageLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="link">
+              {link.label}
+            </Link>
           ))}
         </div>
 
@@ -66,11 +66,6 @@ export function SiteNav() {
           className="sm:hidden border-t border-border bg-background"
         >
           <div className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-4">
-            {pageLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="link">
-                {link.label}
-              </Link>
-            ))}
             {socialLinks.map((link) => (
               <a
                 key={link.href}
@@ -81,6 +76,11 @@ export function SiteNav() {
               >
                 {link.label}
               </a>
+            ))}
+            {pageLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="link">
+                {link.label}
+              </Link>
             ))}
           </div>
         </div>
