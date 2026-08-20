@@ -18,12 +18,3 @@ export function LinkIcon({ hostname, className }: LinkIconProps) {
     return <Radio className={className} />;
   return <Globe className={className} />;
 }
-
-/** Tailwind text colour matching the brand mark above. */
-export function linkIconColor(hostname: string): string {
-  if (hostname.endsWith("youtube.com") || hostname === "youtu.be")
-    return "text-red-500";
-  if (hostname.endsWith("spotify.com")) return "text-green-500";
-  if (hostname.endsWith("apple.com")) return "text-purple-400";
-  return "text-secondary-foreground";
-}
