@@ -1,8 +1,8 @@
-import fs from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import remarkGfm from "remark-gfm";
+import { Sparkles } from "lucide-react";
+import { getRecommendations } from "./_lib/recommendations";
+import { RecommendationSection } from "./_components/recommendation-section";
+import { SectionNav } from "./_components/section-nav";
 
 export const metadata: Metadata = {
   title: "مطالب پیشنهادی",
@@ -13,21 +13,25 @@ export const metadata: Metadata = {
 };
 
 export default function RecommendationsPage() {
-  const source = fs.readFileSync(
-    path.join(process.cwd(), "app/r/recommendations.md"),
-    "utf-8",
-  );
+  const { intro, sections } = getRecommendations();
+  const total = sections.reduce((sum, section) => sum + section.count, 0);
 
   return (
-    <article className="grid gap-6">
-      <h1 className="text-xl sm:text-3xl font-semibold">مطالب پیشنهادی</h1>
+    <div className="grid gap-10">
+      <header className="flex flex-col items-start gap-3 border border-border p-5 md:p-8">
+        <span className="flex items-center gap-2 text-sm text-yellow-600">
+          <Sparkles className="size-4" />
+          {total} لینک
+        </span>
+        <h1 className="text-xl font-semibold sm:text-3xl">مطالب پیشنهادی</h1>
+        {intro && <p className="text-secondary-foreground">{intro}</p>}
+      </header>
 
-      <div className="prose prose-invert max-w-none prose-headings:text-stone-200">
-        <MDXRemote
-          source={source}
-          options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
-        />
-      </div>
-    </article>
+      <SectionNav sections={sections} />
+
+      {sections.map((section) => (
+        <RecommendationSection key={section.slug} section={section} />
+      ))}
+    </div>
   );
 }
