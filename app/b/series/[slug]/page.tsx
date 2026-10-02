@@ -29,7 +29,9 @@ export async function generateMetadata({
 
   return {
     title: series.label,
-    description: `مجموعه ${series.articles.length} قسمتی`,
+    description: series.ordered
+      ? `مجموعه ${series.articles.length} قسمتی`
+      : `${series.articles.length} نوشته`,
     openGraph: {
       images: ["/og/default.png"],
     },
@@ -60,7 +62,9 @@ export default async function SeriesPage({
         <h1 className="mt-4 text-3xl font-bold tracking-tight">
           {series.label}
         </h1>
-        <p className="mt-2">{series.articles.length} بخش</p>
+        <p className="mt-2">
+          {series.articles.length} {series.ordered ? "بخش" : "نوشته"}
+        </p>
       </header>
 
       <div className="space-y-3">
@@ -74,9 +78,11 @@ export default async function SeriesPage({
             <Card>
               <CardHeader className="p-4 pb-2">
                 <CardTitle className="text-base">
-                  <span className="ml-2 text-xs font-normal">
-                    بخش {article.frontmatter.part}
-                  </span>
+                  {article.frontmatter.part !== undefined && (
+                    <span className="ml-2 text-xs font-normal">
+                      بخش {article.frontmatter.part}
+                    </span>
+                  )}
                   {article.frontmatter.title}
                 </CardTitle>
               </CardHeader>

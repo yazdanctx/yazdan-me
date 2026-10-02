@@ -83,11 +83,18 @@ function normalizePublished(value: unknown): boolean | undefined {
   return undefined;
 }
 
+// gray-matter parses unquoted YAML dates (e.g. `date: 2026-08-11`) into Date objects.
+// Normalize to ISO `YYYY-MM-DD` so string comparisons sort chronologically.
+function normalizeDate(value: unknown): string {
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  return String(value ?? "");
+}
+
 function normalizeFrontmatter(data: Record<string, unknown>): ArticleFrontmatter {
   const fm = data as unknown as Record<string, unknown>;
   return {
     title: String(fm.title ?? ""),
-    date: String(fm.date ?? ""),
+    date: normalizeDate(fm.date),
     description: String(fm.description ?? ""),
     published: normalizePublished(fm.published),
     series: fm.series as string | undefined,
@@ -158,6 +165,8 @@ export function getDraftArticles(): Article[] {
 export interface Series {
   slug: string;
   label: string;
+  /** True when articles carry `part` numbers and form a sequence; false for loose collections sorted newest-first. */
+  ordered: boolean;
   articles: Article[];
 }
 
@@ -174,10 +183,16 @@ export function getSeries(): Series[] {
 
   const series: Series[] = [];
   for (const [slug, group] of seriesMap) {
-    group.sort((a, b) => (a.frontmatter.part ?? 0) - (b.frontmatter.part ?? 0));
+    const ordered = group.some((a) => a.frontmatter.part !== undefined);
+    if (ordered) {
+      group.sort((a, b) => (a.frontmatter.part ?? 0) - (b.frontmatter.part ?? 0));
+    } else {
+      group.sort((a, b) => b.frontmatter.date.localeCompare(a.frontmatter.date));
+    }
     series.push({
       slug,
       label: group[0].frontmatter.seriesLabel ?? slug,
+      ordered,
       articles: group,
     });
   }
